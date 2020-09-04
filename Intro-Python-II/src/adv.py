@@ -1,3 +1,6 @@
+import sys
+import time
+import textwrap
 from room import Room
 
 # Declare all the rooms
@@ -33,9 +36,49 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+
+def steady_print(text):
+    for character in text:
+        sys.stdout.write(character)
+        time.sleep(.05)
+    return ""
+
+
+def display_location(loc):
+    print(steady_print(f"Current location: {room(loc).name}"))
+    print(steady_print(room(loc).description))
+
+
+def outside_choice():
+    options = ["y", "n"]
+    choice = ""
+    while choice not in options:
+        choice = input("Do you dare enter the cave? [y, n]:")
+        if choice == "y":
+            global loc
+            loc = "foyer"
+            return steady_print("You take a deep breath and enter..")
+        elif choice == "n":
+            return steady_print("You turn around and head home without any treasure. Game Over.")
+            quit()
+        else:
+            print("I didn't understand that.")
+        
+
 #
 # Main
 #
+# Introduction
+print(steady_print("Welcome treasure hunter..."))
+
+# Start
+loc = 'outside'
+
+while True:
+    if loc == 'outside':
+        display_location(loc)
+        outside_choice()
+
 
 # Make a new player object that is currently in the 'outside' room.
 
