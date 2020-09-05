@@ -46,19 +46,22 @@ def steady_print(text):
 
 
 def display_location(loc):
-    print(steady_print(f"Current location: {room[loc].name}"))
-    print(steady_print(room[loc].description))
+    print("")
+    print(steady_print(f"Current location: {loc.name}"))
+    print(loc.description)
+    print("")
 
 
 def outside_choice():
     options = ["y", "n"]
     choice = ""
     while choice not in options:
-        choice = input("Do you dare enter the cave? [y, n]:")
+        choice = input("Do you dare enter the cave? [y, n]: ")
+        print("")
         if choice == "y":
-            global loc
-            loc = room["foyer"].name
-            return steady_print("You take a deep breath and enter...")
+            global p1
+            p1.current_room = room["foyer"]
+            return steady_print("You take a deep breath and enter...\n")
         elif choice == "n":
             print(steady_print("Game Over."))
             quit()
@@ -67,37 +70,44 @@ def outside_choice():
 
 
 def in_cave_choice(location):
+    rooms = {
+        "n": location.n_to,
+        "s": location.s_to,
+        "e": location.e_to,
+        "w": location.w_to
+    }
+
     while True:
-        choice = input("Which way do you go? [n, s, e, w]:")
-        attrib = f"{choice}_to"
-        next_room = room[location].attrib
+        choice = input("Which way do you go? [n, s, e, w]: ")
+        next_room = rooms[choice]
         if next_room:
-            global loc
-            loc = next_room.name
+            global p1
+            p1.current_room = next_room
             return ""
         else:
             print(steady_print(
-                f"You run in to solid wall. Confused, you return to the {room[loc].name}..."))
+                f"\nYou can't go in this direction so you return to the {location.name}...\n"))
 
 
 #
 # Main
 #
 
-print(steady_print("Welcome treasure hunter."))
-player_name = input("What is your name?:")
-
-
 # Start
-loc = room["outside"].name
+print(steady_print("Welcome treasure hunter!"))
+player_name = input("Enter your name: ")
 
+p1 = Player(player_name, room["outside"])
+
+# Game
 while True:
-    if loc == room["outside"].name:
-        display_location(loc)
+    location = p1.current_room
+    if location.name == room["outside"].name:
+        display_location(location)
         outside_choice()
     else:
-        display_location(loc)
-        in_cave_choice(loc)
+        display_location(location)
+        in_cave_choice(location)
 
 
 # Make a new player object that is currently in the 'outside' room.
