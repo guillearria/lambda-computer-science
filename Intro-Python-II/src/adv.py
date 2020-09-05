@@ -2,6 +2,7 @@ import sys
 import time
 import textwrap
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -83,7 +84,9 @@ def in_cave_choice(location):
 # Main
 #
 
-print(steady_print("Welcome treasure hunter..."))
+print(steady_print("Welcome treasure hunter."))
+player_name = input("What is your name?:")
+
 
 # Start
 loc = room["outside"].name
