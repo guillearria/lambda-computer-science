@@ -45,8 +45,8 @@ def steady_print(text):
 
 
 def display_location(loc):
-    print(steady_print(f"Current location: {room(loc).name}"))
-    print(steady_print(room(loc).description))
+    print(steady_print(f"Current location: {room[loc].name}"))
+    print(steady_print(room[loc].description))
 
 
 def outside_choice():
@@ -56,28 +56,45 @@ def outside_choice():
         choice = input("Do you dare enter the cave? [y, n]:")
         if choice == "y":
             global loc
-            loc = "foyer"
-            return steady_print("You take a deep breath and enter..")
+            loc = room["foyer"].name
+            return steady_print("You take a deep breath and enter...")
         elif choice == "n":
-            return steady_print("You turn around and head home without any treasure. Game Over.")
+            print(steady_print("Game Over."))
             quit()
         else:
-            print("I didn't understand that.")
-        
+            print(steady_print("I didn't understand that."))
+
+
+def in_cave_choice(location):
+    while True:
+        choice = input("Which way do you go? [n, s, e, w]:")
+        attrib = f"{choice}_to"
+        next_room = room[location].attrib
+        if next_room:
+            global loc
+            loc = next_room.name
+            return ""
+        else:
+            print(steady_print(
+                f"You run in to solid wall. Confused, you return to the {room[loc].name}..."))
+
 
 #
 # Main
 #
-# Introduction
+
 print(steady_print("Welcome treasure hunter..."))
 
 # Start
-loc = 'outside'
+loc = room["outside"].name
 
 while True:
-    if loc == 'outside':
+    if loc == room["outside"].name:
         display_location(loc)
         outside_choice()
+    else:
+        display_location(loc)
+        in_cave_choice(loc)
 
 
 # Make a new player object that is currently in the 'outside' room.
