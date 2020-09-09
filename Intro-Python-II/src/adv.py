@@ -53,8 +53,9 @@ def start_game():
     def display_location(loc):
         print("")
         print(steady_print(f"Current location: {loc.name}"))
-        print(loc.description)
+        print(steady_print(loc.description))
         print("")
+        print(steady_print(f"Items available: {loc.items}"))
 
     def outside_choice():
         options = ["y", "n"]
