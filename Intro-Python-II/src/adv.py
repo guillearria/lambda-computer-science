@@ -38,11 +38,11 @@ room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
 # Add items to rooms
-room['outside'].n_to = [Item("torch", "still usable")]
-room['foyer'].s_to = [Item("lighter", "barely any fluid left")]
-room['overlook'].s_to = [Item("sword", "shiny"), Item("bow","still works")]
-room['narrow'].n_to = [Item("arrows", "handmade bundle")]
-room['treasure'].s_to = [Item("bones", "very old")]
+room['outside'].items = [Item("torch", "still usable")]
+room['foyer'].items = [Item("lighter", "barely any fluid left")]
+room['overlook'].items = [Item("sword", "shiny"), Item("bow","still works")]
+room['narrow'].items = [Item("arrows", "handmade bundle")]
+room['treasure'].items = [Item("bones", "very old")]
 
 # Dramatic print
 
