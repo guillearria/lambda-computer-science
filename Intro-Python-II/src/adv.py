@@ -36,6 +36,8 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+# Dramatic print
+
 
 def steady_print(text):
     for character in text:
@@ -43,12 +45,17 @@ def steady_print(text):
         time.sleep(.05)
     return ""
 
+# Clear terminal screen
+
+
 def cls():
-    os.system('cls' if os.name=='nt' else 'clear')
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 #
 # Main
 #
+
+
 def start_game():
     def display_location(loc):
         print("")
@@ -56,6 +63,7 @@ def start_game():
         print(steady_print(loc.description))
         print("")
         print(steady_print(f"Items available: {loc.items}"))
+        print("")
 
     def outside_choice():
         options = ["y", "n"]
@@ -67,21 +75,18 @@ def start_game():
                 nonlocal p1
                 p1.current_room = room["foyer"]
                 return steady_print("You take a deep breath and enter...\n")
-            elif choice == "n":
-                print(steady_print("Game Over."))
-                quit()
-            elif choice == "q":
-                print(steady_print("Game Over."))
+            elif choice == "n" or choice == "q":
+                print(steady_print("Game Over!"))
                 quit()
             else:
                 print(steady_print("I didn't understand that."))
 
-    def in_cave_choice(location):
-        rooms = {
-            "n": location.n_to,
-            "s": location.s_to,
-            "e": location.e_to,
-            "w": location.w_to
+    def in_cave_choice(room):
+        available_rooms = {
+            "n": room.n_to,
+            "s": room.s_to,
+            "e": room.e_to,
+            "w": room.w_to
         }
 
         while True:
@@ -90,7 +95,7 @@ def start_game():
                 print(steady_print("\nGame Over."))
                 quit()
             else:
-                next_room = rooms[choice]
+                next_room = available_rooms[choice]
 
             if next_room:
                 nonlocal p1
@@ -98,12 +103,12 @@ def start_game():
                 return ""
             else:
                 print(steady_print(
-                    f"\nYou can't go in this direction so you return to the {location.name}...\n"))
+                    f"\nYou can't go in this direction so you return to the {room.name}...\n"))
 
     cls()
     print(steady_print("Welcome treasure hunter!"))
     player_name = input("Enter your name: ")
-    
+
     print(steady_print("\nEnter 'q' during any input to exit game."))
 
     p1 = Player(player_name, room["outside"])
@@ -117,19 +122,6 @@ def start_game():
             display_location(location)
             in_cave_choice(location)
 
-
-# Make a new player object that is currently in the 'outside' room.
-
-# Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
 
 if __name__ == '__main__':
     start_game()
