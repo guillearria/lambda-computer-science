@@ -79,7 +79,6 @@ def start_game():
         current_room = player.current_room
         room_items = [item.name for item in current_room.items]
         inventory = [item.name for item in player.inventory]
-        print("")
         print(steady_print(f"Items available here: {room_items}"))
         print(f"Player inventory: {inventory}")
         print("")
@@ -120,9 +119,9 @@ def start_game():
             elif word_ct == 2:
                 verb_choice = word_split[0]
                 item_choice = word_split[1]
-                room_items = current_room.items
-                item_names = [item.name for item in room_items]
                 if verb_choice == "take" or verb_choice == "get":
+                    room_items = current_room.items
+                    item_names = [item.name for item in room_items]
                     if item_choice in item_names:
                         item = room_items[item_names.index(item_choice)]
                         item.on_take()
@@ -133,8 +132,10 @@ def start_game():
                         print(steady_print(
                             f"There's no {item_choice} in this room.."))
                 elif verb_choice == "drop":
+                    inventory = player.items
+                    item_names = [item.name for item in inventory]
                     if item_choice in item_names:
-                        item = room_items[item_names.index(item_choice)]
+                        item = inventory[item_names.index(item_choice)]
                         item.on_drop()
                         current_room.add_item(item)
                         player.remove_item(item)
@@ -142,6 +143,7 @@ def start_game():
                     else:
                         print(steady_print(
                             f"There's no {item_choice} in this room.."))
+                        print("")
                 else:
                     print(steady_print(f"Unable to {choice}!"))
                     print("")
