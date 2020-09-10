@@ -58,30 +58,13 @@ def cls():
 
 def start_game():
     def display_location(loc):
-        print("")
         print(steady_print(f"Current location: {loc.name}"))
-        print(steady_print(loc.description))
+        print(loc.description)
         print("")
-        print(steady_print(f"Items available: {loc.items}"))
+        print(steady_print(f"Items available here: {loc.items}"))
         print("")
 
-    def outside_choice():
-        options = ["y", "n"]
-        choice = ""
-        while choice not in options:
-            choice = input("Do you dare enter the cave? [y, n]: ")
-            print("")
-            if choice == "y":
-                nonlocal p1
-                p1.current_room = room["foyer"]
-                return steady_print("You take a deep breath and enter...\n")
-            elif choice == "n" or choice == "q":
-                print(steady_print("Game Over!"))
-                quit()
-            else:
-                print(steady_print("I didn't understand that."))
-
-    def in_cave_choice(room):
+    def choose_action(room):
         available_rooms = {
             "n": room.n_to,
             "s": room.s_to,
@@ -90,37 +73,44 @@ def start_game():
         }
 
         while True:
-            choice = input("Which way do you go? [n, s, e, w]: ")
+            choice = input(
+                "What would you like to do?\n[n, s, e, w or <take, get, drop> item]: ")
+            print("")
+            word_ct = len(choice.split(" "))
             if choice == "q":
-                print(steady_print("\nGame Over."))
+                print(steady_print("Game Over!"))
+                print("")
                 quit()
-            else:
+            elif word_ct == 1:
                 next_room = available_rooms[choice]
-
-            if next_room:
-                nonlocal p1
-                p1.current_room = next_room
-                return ""
+                if next_room:
+                    nonlocal p1
+                    p1.current_room = next_room
+                    return ""
+                else:
+                    print(steady_print(
+                        f"You can't go in this direction so you return to the {room.name}..."))
+                    print("")
+            elif word_ct == 2:
+                print(f"{choice}")
+                print("")
             else:
-                print(steady_print(
-                    f"\nYou can't go in this direction so you return to the {room.name}...\n"))
+                print(steady_print("Unknown command..."))
+                print("")
 
     cls()
-    print(steady_print("Welcome treasure hunter!"))
     player_name = input("Enter your name: ")
-
-    print(steady_print("\nEnter 'q' during any input to exit game."))
-
     p1 = Player(player_name, room["outside"])
 
+    print("")
+    print(steady_print(f"Welcome treasure hunter, {p1.name}!"))
+    print(steady_print("Enter 'q' during any input to exit game.."))
+    print("")
+
     while True:
-        location = p1.current_room
-        if location.name == room["outside"].name:
-            display_location(location)
-            outside_choice()
-        else:
-            display_location(location)
-            in_cave_choice(location)
+        current_room = p1.current_room
+        display_location(current_room)
+        choose_action(current_room)
 
 
 if __name__ == '__main__':
