@@ -72,7 +72,7 @@ def start_game():
         print(steady_print(f"Current location: {current_room.name}"))
         print(current_room.description)
         print("")
-        print(steady_print(f"Items available here: {room_items}"))
+        print(steady_print(f"Items in this room: {room_items}"))
         print(f"Player inventory: {inventory}")
         print("")
 
@@ -80,7 +80,7 @@ def start_game():
         current_room = player.current_room
         room_items = [item.name for item in current_room.items]
         inventory = [item.name for item in player.inventory]
-        print(steady_print(f"Items available here: {room_items}"))
+        print(steady_print(f"Items in this room: {room_items}"))
         print(f"Player inventory: {inventory}")
         print("")
 
