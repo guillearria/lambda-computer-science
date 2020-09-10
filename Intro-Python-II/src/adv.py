@@ -131,8 +131,9 @@ def start_game():
                     else:
                         print(steady_print(
                             f"There's no {item_choice} in this room.."))
+                        print("")
                 elif verb_choice == "drop":
-                    inventory = player.items
+                    inventory = player.inventory
                     item_names = [item.name for item in inventory]
                     if item_choice in item_names:
                         item = inventory[item_names.index(item_choice)]
@@ -142,7 +143,7 @@ def start_game():
                         update_items(player)
                     else:
                         print(steady_print(
-                            f"There's no {item_choice} in this room.."))
+                            f"There's no {item_choice} in your inventory.."))
                         print("")
                 else:
                     print(steady_print(f"Unable to {choice}!"))
