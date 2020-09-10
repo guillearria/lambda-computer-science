@@ -67,18 +67,21 @@ def cls():
 def start_game():
     def display_location(player):
         current_room = player.current_room
+        room_items = [item.name for item in current_room.items]
         print(steady_print(f"Current location: {current_room.name}"))
         print(current_room.description)
         print("")
-        print(steady_print(f"Items available here: {current_room.items}"))
-        print(steady_print(f"Player inventory: {player.inventory}"))
+        print(steady_print(f"Items available here: {room_items}"))
+        print(f"Player inventory: {player.inventory}")
         print("")
 
     def update_items(player):
         current_room = player.current_room
+        room_items = [item.name for item in current_room.items]
+        inventory = [item.name for item in player.inventory]
         print("")
-        print(steady_print(f"Items available here: {current_room.items}"))
-        print(steady_print(f"Player inventory: {player.inventory}"))
+        print(steady_print(f"Items available here: {room_items}"))
+        print(f"Player inventory: {inventory}")
         print("")
 
     def choose_action(player):
@@ -101,22 +104,27 @@ def start_game():
                 print("")
                 quit()
             elif word_ct == 1:
-                next_room = available_rooms[choice]
-                if next_room:
-                    player.current_room = next_room
-                    return ""
+                valid_choices = ['n', 's', 'e', 'w']
+                if choice in valid_choices:
+                    next_room = available_rooms[choice]
+                    if next_room:
+                        player.current_room = next_room
+                        return ""
+                    else:
+                        print(steady_print(
+                            f"You can't go in this direction..."))
+                        print("")
                 else:
-                    print(steady_print(
-                        f"You can't go in this direction so you return to the {current_room.name}..."))
+                    print(steady_print("Unknown command..."))
                     print("")
             elif word_ct == 2:
                 verb_choice = word_split[0]
                 item_choice = word_split[1]
+                room_items = current_room.items
+                item_names = [item.name for item in room_items]
                 if verb_choice == "take" or verb_choice == "get":
-                    items = current_room.items
-                    item_names = [item.name for item in items]
                     if item_choice in item_names:
-                        item = items[item_names.index(item_choice)]
+                        item = room_items[item_names.index(item_choice)]
                         item.on_take()
                         current_room.remove_item(item)
                         player.add_item(item)
@@ -126,7 +134,7 @@ def start_game():
                             f"There's no {item_choice} in this room.."))
                 elif verb_choice == "drop":
                     if item_choice in item_names:
-                        item = items[item_names.index(item_choice)]
+                        item = room_items[item_names.index(item_choice)]
                         item.on_drop()
                         current_room.add_item(item)
                         player.remove_item(item)
