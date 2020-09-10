@@ -92,19 +92,23 @@ def start_game():
                     return ""
                 else:
                     print(steady_print(
-                        f"You can't go in this direction so you return to the {room.name}..."))
+                        f"You can't go in this direction so you return to the {current_room.name}..."))
                     print("")
             elif word_ct == 2:
-                verb = word_split[0]
-                item = word_split[1]
-                if verb == "take" or verb == "get":
+                verb_choice = word_split[0]
+                item_choice = word_split[1]
+                if verb_choice == "take" or verb_choice == "get":
                     items = current_room.items
-                    if item in items:
+                    item_names = [item.name for item in items]
+                    if item_choice in item_names:
+                        item = items[item_names.index(item_choice)]
+                        item.on_take()
                         current_room.remove_item(item)
                         player.add_item(item)
                     else:
-                        print(steady_print(f"There's no {item} in this room.."))
-                elif verb == "drop":
+                        print(steady_print(
+                            f"There's no {item_choice} in this room.."))
+                elif verb_choice == "drop":
                     pass
                 else:
                     print(steady_print(f"Unable to {choice}!"))
