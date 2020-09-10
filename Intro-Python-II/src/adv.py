@@ -4,6 +4,7 @@ import time
 import textwrap
 from room import Room
 from player import Player
+from item import Item
 
 # Declare all the rooms
 room = {
@@ -36,6 +37,13 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+# Add items to rooms
+room['outside'].n_to = [item]
+room['foyer'].s_to = room['outside']
+room['overlook'].s_to = room['foyer']
+room['narrow'].n_to = room['treasure']
+room['treasure'].s_to = room['narrow']
+
 # Dramatic print
 
 
@@ -61,6 +69,13 @@ def start_game():
         current_room = player.current_room
         print(steady_print(f"Current location: {current_room.name}"))
         print(current_room.description)
+        print("")
+        print(steady_print(f"Items available here: {current_room.items}"))
+        print(steady_print(f"Player inventory: {player.inventory}"))
+        print("")
+
+    def update_items(player):
+        current_room = player.current_room
         print("")
         print(steady_print(f"Items available here: {current_room.items}"))
         print(steady_print(f"Player inventory: {player.inventory}"))
@@ -105,11 +120,20 @@ def start_game():
                         item.on_take()
                         current_room.remove_item(item)
                         player.add_item(item)
+                        update_items(player)
                     else:
                         print(steady_print(
                             f"There's no {item_choice} in this room.."))
                 elif verb_choice == "drop":
-                    pass
+                    if item_choice in item_names:
+                        item = items[item_names.index(item_choice)]
+                        item.on_drop()
+                        current_room.add_item(item)
+                        player.remove_item(item)
+                        update_items(player)
+                    else:
+                        print(steady_print(
+                            f"There's no {item_choice} in this room.."))
                 else:
                     print(steady_print(f"Unable to {choice}!"))
                     print("")
