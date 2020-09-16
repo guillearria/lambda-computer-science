@@ -40,8 +40,8 @@ class LinkedList:
         else:
             self.tail.set_next_node(new_node)
             self.tail = new_node
+
     def remove_head(self):
-        # Cases?
         if self.head is None:
             return None
         else:
@@ -54,10 +54,30 @@ class LinkedList:
             return ret_value
 
     def remove_tail(self):
-        # TODO
+        if self.head is None:
+            return None
+        else:
+            ret_value = self.tail.get_value()
+            if self.head == self.tail:
+                self.head = None
+                self.tail = None
+            else:
+                cur_node = self.head
+                next_node = cur_node.get_next_node()
+                while next_node is not self.tail:
+                    cur_node = cur_node.get_next_node()
+                cur_node.set_next_node(None)
+                self.tail = cur_node
+            return ret_value
 
     def contains(self, value):
-        # TODO time permitting
+        cur_node = self.head
+        while cur_node.get_value() is not None:
+            if cur_node.get_value == value:
+                return True
+            else:
+                cur_node = cur_node.get_next_node()
+        return False
 
-    def get_max(self):
-        # TODO time permitting
+    # def get_max(self):
+    #     # TODO time permitting
