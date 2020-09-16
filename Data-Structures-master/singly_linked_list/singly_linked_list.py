@@ -24,9 +24,7 @@ class LinkedList:
             self.head = new_node
             self.tail = new_node
         else:
-            # Set next_node of new_node to current head
             new_node.set_next_node(self.head)
-            # Update current head to new_node
             self.head = new_node
 
     def add_to_tail(self, value):
@@ -72,12 +70,20 @@ class LinkedList:
 
     def contains(self, value):
         cur_node = self.head
-        while cur_node.get_value() is not None:
-            if cur_node.get_value == value:
+        while cur_node is not None:
+            if cur_node.get_value() == value:
                 return True
             else:
                 cur_node = cur_node.get_next_node()
         return False
 
-    # def get_max(self):
-    #     # TODO time permitting
+    def get_max(self):
+        cur_node = self.head
+        cur_max = 0
+        while cur_node is not None:
+            cur_node_val = cur_node.get_value()
+            if cur_node_val > cur_max:
+                cur_max = cur_node_val
+            else:
+                cur_node = cur_node.get_next_node()
+        return cur_max
