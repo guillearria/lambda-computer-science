@@ -19,14 +19,16 @@ class LinkedList:
         self.tail = None
 
     def add_to_head(self, value):
-        # Create new node
         new_node = Node(value)
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            # Set next_node of new_node to current head
+            new_node.set_next_node(self.head)
 
-        # Set next_node of new_node to current head
-        new_node.set_next_node(self.head)
-
-        # Update current head to new_node
-        self.head = new_node
+            # Update current head to new_node
+            self.head = new_node
 
     def add_to_tail(self, value):
         # TODO
