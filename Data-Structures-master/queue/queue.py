@@ -17,9 +17,11 @@ Stretch: What if you could only use instances of your Stack class to implement t
 # Remove from head, add to tail
 
 
+from singly_linked_list import LinkedList
+
+
 # class Queue:
 #     def __init__(self):
-#         self.size = 0
 #         self.storage = []
 
 #     def __len__(self):
@@ -35,7 +37,7 @@ Stretch: What if you could only use instances of your Stack class to implement t
 #         else:
 #             return None
 
-from singly_linked_list import LinkedList
+
 # 2. Using linked list as underlying structure
 
 
@@ -58,3 +60,11 @@ class Queue:
             return removed_head_val
         else:
             return None
+
+
+# 3. What is the difference between using an array vs. a linked list when 
+# implementing a Queue?
+
+""" The difference is not having to use self.size with an array since they come with
+built-in len method. Append and pop are very similar to the add and remove methods
+of a LinkedList."""
