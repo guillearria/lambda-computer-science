@@ -14,22 +14,22 @@ return elements in Last In First Out order.
 # Remove from head, add to head
 
 
-class Stack:
-    def __init__(self):
-        self.storage = []
+# class Stack:
+#     def __init__(self):
+#         self.storage = []
 
-    def __len__(self):
-        return len(self.storage)
+#     def __len__(self):
+#         return len(self.storage)
 
-    def push(self, value):
-        self.storage.insert(0, value)
+#     def push(self, value):
+#         self.storage.insert(0, value)
 
-    def pop(self):
-        if len(self.storage):
-            popped_element = self.storage.pop(0)
-            return popped_element
-        else:
-            return None
+#     def pop(self):
+#         if len(self.storage):
+#             popped_element = self.storage.pop(0)
+#             return popped_element
+#         else:
+#             return None
 
 
 # 2. Using linked list as underlying structure
@@ -38,25 +38,25 @@ class Stack:
 from singly_linked_list import LinkedList
 
 
-# class Stack:
-#     def __init__(self):
-#         self.size = 0
-#         self.storage = LinkedList()
+class Stack:
+    def __init__(self):
+        self.size = 0
+        self.storage = LinkedList()
 
-#     def __len__(self):
-#         return self.size
+    def __len__(self):
+        return self.size
 
-#     def push(self, value):
-#         self.size += 1
-#         self.storage.add_to_tail(value)
+    def push(self, value):
+        self.size += 1
+        self.storage.add_to_head(value)
 
-#     def pop(self):
-#         if self.size:
-#             self.size -= 1
-#             removed_head_val = self.storage.remove_head()
-#             return removed_head_val
-#         else:
-#             return None
+    def pop(self):
+        if self.size:
+            self.size -= 1
+            removed_head_val = self.storage.remove_head()
+            return removed_head_val
+        else:
+            return None
 
 
 # 3. What is the difference between using an array vs. a linked list when 
