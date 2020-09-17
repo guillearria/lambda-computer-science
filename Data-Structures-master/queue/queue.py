@@ -17,9 +17,6 @@ Stretch: What if you could only use instances of your Stack class to implement t
 # Remove from head, add to tail
 
 
-from singly_linked_list import LinkedList
-
-
 # class Queue:
 #     def __init__(self):
 #         self.storage = []
@@ -39,6 +36,9 @@ from singly_linked_list import LinkedList
 
 
 # 2. Using linked list as underlying structure
+
+
+from singly_linked_list import LinkedList
 
 
 class Queue:
@@ -62,7 +62,7 @@ class Queue:
             return None
 
 
-# 3. What is the difference between using an array vs. a linked list when 
+# 3. What is the difference between using an array vs. a linked list when
 # implementing a Queue?
 
 """ The difference is not having to use self.size with an array since they come with
