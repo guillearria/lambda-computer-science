@@ -45,22 +45,16 @@ class Queue:
         self.storage = LinkedList()
 
     def __len__(self):
-        count = 0
-        if self.storage.head is None:
-            return count
-        else:
-            cur_node = self.storage.head
-            while cur_node is not None:
-                cur_node = cur_node.get_next_node()
-                count += 1
-            return count
+        return self.size
 
     def enqueue(self, value):
-        self.storage.append(value)
+        self.size += 1
+        self.storage.add_to_tail(value)
 
     def dequeue(self):
-        if len(self.storage):
-            popped_element = self.storage.pop(0)
-            return popped_element
+        if self.size:
+            self.size -= 1
+            removed_head_val = self.storage.remove_head()
+            return removed_head_val
         else:
             return None
