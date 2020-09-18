@@ -61,7 +61,7 @@ class LinkedList:
                 self.tail = None
             else:
                 cur_node = self.head
-                while cur_node.get_next_node().get_next_node() is not None:
+                while cur_node.get_next_node() is not self.tail:
                     cur_node = cur_node.get_next_node()
                 cur_node.set_next_node(None)
                 self.tail = cur_node
