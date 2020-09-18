@@ -7,6 +7,12 @@ class ListNode:
         self.prev = prev
         self.value = value
         self.next = next
+
+    def delete(self):
+        if self.prev:
+            self.next.prev = self.prev
+        if self.next:
+            self.prev.next = self.next
             
 """
 Our doubly-linked list class. It holds references to 
@@ -49,7 +55,7 @@ class DoublyLinkedList:
         ret_value = self.head
         if ret_value is None:
             return None
-        elif self.head == self.tail:
+        elif self.head is self.tail:
             self.head = self.tail = None
         else: 
             # assign next of cur head as new head
@@ -86,7 +92,7 @@ class DoublyLinkedList:
         ret_value = self.head
         if self.head is None:
             return None
-        elif self.head == self.tail:
+        elif self.head is self.tail:
             self.head = self.tail = None
         else: 
             # assign prev of cur tail as new tail
@@ -114,13 +120,19 @@ class DoublyLinkedList:
     order of the other elements of the List.
     """
     def delete(self, node):
-        if self.length is None:
+        self.length -= 1
+        if self.head is None:
             return None
-        elif self.head == self.tail:
+        elif self.head is self.tail:
             self.head = self.tail = None
         elif node is self.head:
             self.head = node.next
-            self.head.prev = None
+            node.delete()
+        elif node is self.tail:
+            self.tail = node.prev
+            node.delete()
+        else:
+            node.delete()
 
     """
     Finds and returns the maximum value of all the nodes 
