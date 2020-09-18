@@ -10,9 +10,9 @@ class ListNode:
 
     def delete(self):
         if self.prev:
-            self.next.prev = self.prev
-        if self.next:
             self.prev.next = self.next
+        if self.next:
+            self.next.prev = self.prev
             
 """
 Our doubly-linked list class. It holds references to 
@@ -132,16 +132,17 @@ class DoublyLinkedList:
     def delete(self, node):
         if self.head is None:
             return None
-        elif self.head is self.tail:
+        elif self.length == 1:
             self.head = self.tail = None
-        elif node is self.head:
-            self.head = node.next
-            node.delete()
-        elif node is self.tail:
-            self.tail = node.prev
-            node.delete()
         else:
-            node.delete()
+            if node is self.head:
+                self.head = node.next
+                node.delete()
+            elif node is self.tail:
+                self.tail = node.prev
+                node.delete()
+            else:
+                node.delete()
         self.length -= 1
 
     """
@@ -149,4 +150,13 @@ class DoublyLinkedList:
     in the List.
     """
     def get_max(self):
-        pass
+        if self.head is not None:
+            max_val = 0
+            cur_node = self.head
+            while cur_node is not None:
+                cur_val = cur_node.value
+                if cur_val > max_val:
+                    max_val = cur_val
+                cur_node = cur_node.next
+            return max_val
+             
