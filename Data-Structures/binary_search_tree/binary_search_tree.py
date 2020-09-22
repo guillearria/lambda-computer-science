@@ -73,10 +73,19 @@ class BSTNode:
 
     # Return the maximum value found in the tree
     def get_max(self):
-        pass
+        # return value at far right
+        if self.right is None:
+            return self.value
+        else:
+            cur_node = self.right
+            while cur_node.right is not None:
+                cur_node = cur_node.right
+            return cur_node.value
+
 
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
+        # one side then the other, use recursion
         pass
 
     # Part 2 -----------------------
