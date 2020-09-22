@@ -85,16 +85,11 @@ class BSTNode:
 
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
-        # one side then the other, use recursion
-        if self:   
-            # First recur on left child 
-            self.for_each(self.left) 
-    
-            # then print the data of node 
-            fn(self.value) 
-    
-            # now recur on right child 
-            self.for_each(self.right) 
+        fn(self.value)
+        if self.left:
+            self.left.for_each(fn)
+        if self.right:
+            self.right.for_each(fn)
 
     # Part 2 -----------------------
 
@@ -143,7 +138,7 @@ bst.dft_print()
 print("elegant methods")
 print("pre order")
 bst.pre_order_dft()
-print("in order")
-bst.in_order_dft()
+# print("in order")
+# bst.in_order_dft()
 print("post order")
 bst.post_order_dft()  
