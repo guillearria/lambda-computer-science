@@ -36,18 +36,13 @@ class BSTNode:
         # RECURSIVE
         # if value < root node
         if value < self.value:
-            # if left child is None
             if self.left is None:
-                # add here
                 self.left = BSTNode(value)
             else:
-                # recursive call
                 self.left.insert(value)
         # if value >= root node
         if value >= self.value:
-            # if right child is None
             if self.right is None:
-                # add here
                 self.right = BSTNode(value)
             else:
                 # recursive call
