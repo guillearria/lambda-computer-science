@@ -86,7 +86,15 @@ class BSTNode:
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
         # one side then the other, use recursion
-        pass
+        if self:   
+            # First recur on left child 
+            self.for_each(self.left) 
+    
+            # then print the data of node 
+            fn(self.value) 
+    
+            # now recur on right child 
+            self.for_each(self.right) 
 
     # Part 2 -----------------------
 
