@@ -3,6 +3,11 @@ Binary search trees are a data structure that enforce an ordering over
 the data they store. That ordering in turn makes it a lot more efficient 
 at searching for a particular piece of data in the tree. 
 
+* Rule: Each vertex (node) has single inbound edge (parent)
+* Rule: Each vertex (node) has no more than two children
+* Rule: Values less than a node are stored in LEFT subtree
+* Rule: Values greater than or equal to a node are stored in RIGHT subtree
+
 This part of the project comprises two days:
 1. Implement the methods `insert`, `contains`, `get_max`, and `for_each`
    on the BSTNode class.
@@ -16,8 +21,38 @@ class BSTNode:
         self.right = None
 
     # Insert the given value into the tree
-    def insert(self, value):
-        pass
+    def insert(self, value): 
+        # ITERATIVE
+        # while not at bottom of tree
+            # if value < root node, go left
+                # if left child is None
+                    # add here
+                    # exit loop
+            # if value >= root node, go right
+                # if right child is None
+                    # add here
+                    # exit loop
+
+        # RECURSIVE
+        # if value < root node, go left
+        if value < self.value:
+            # if left child is None
+            if self.left is None:
+                # add here
+                self.left = BSTNode(value)
+            else:
+                # recursive call
+                self.left.insert(value)
+        # if value >= root node, go right
+        if value >= self.value:
+            # if right child is None
+            if self.right is None:
+                # add here
+                self.right = BSTNode(value)
+            else:
+                # recursive call
+                self.right.insert(value)
+
 
     # Return True if the tree contains the value
     # False if it does not
