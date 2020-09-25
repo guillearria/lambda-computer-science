@@ -14,6 +14,8 @@ This part of the project comprises two days:
 2. Implement the `in_order_print`, `bft_print`, and `dft_print` methods
    on the BSTNode class.
 """
+from stack import Stack
+from queue import Queue
 
 
 class BSTNode:
@@ -104,9 +106,6 @@ class BSTNode:
         if self.right:
             self.right.in_order_print()
 
-    from stack import Stack
-    from queue import Queue
-
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self):
@@ -118,8 +117,17 @@ class BSTNode:
         #     print the removed node
         #     add all children of that node into the queue
 
-        # Print the value of every node, starting with the given node,
-        # in an iterative depth first traversal
+        queue = Queue()
+        queue.add(self.value)
+
+        while len(queue):
+            removed_head = queue.remove()
+            print(removed_head.value)
+            if self.left:
+                queue.add(self.left)
+            if self.right:
+                queue.add(self.right)
+
     def dft_print(self):
         # V1
         # if self.left:
@@ -129,17 +137,26 @@ class BSTNode:
         #     self.right.in_order_print()
 
         # create a stack to keep track of nodes we are processing
+        stack = Stack()
         # push 'self' into stack
+        stack.push(self.value)
 
         # while something is in stack (not done processing all nodes)
             # use existing for_each() as a reference for traversal logic
             # push when we START processing a node, pop when node is done
             # don't forget to call print
 
-        # Stretch Goals -------------------------
-        # Note: Research may be required
+        # while len(stack):
+        #     self.for_each()
+        #     print(self.value)
 
-        # Print Pre-order recursive DFT
+
+        pass
+
+    # Stretch Goals -------------------------
+    # Note: Research may be required
+
+    # Print Pre-order recursive DFT
     def pre_order_dft(self):
         print(self.value)
         if self.left:

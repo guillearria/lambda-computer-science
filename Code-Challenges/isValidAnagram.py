@@ -17,10 +17,14 @@ def isValidAnagram(str1, str2):
     # split both strings into letters
     # organize alphabetically
     # compare and return result
-    return sorted(str1) == sorted(str2)
+    return sorted(str1.lower()) == sorted(str2.lower())
 
 # tests
 print(isValidAnagram('','')) # true
 print(isValidAnagram('aaz', 'zza')) # false
 print(isValidAnagram('anagram', 'nagaram')) # true
 print(isValidAnagram('cinema', 'iceman')) # true
+
+print(isValidAnagram('cinemA', 'iceman')) # true
+print(isValidAnagram('cinemA ', 'iceman')) # false
+print(isValidAnagram('cinemA ', 'iceman ')) # true
