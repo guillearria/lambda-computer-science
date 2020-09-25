@@ -118,15 +118,17 @@ class BSTNode:
         #     add all children of that node into the queue
 
         queue = Queue()
-        queue.add(self.value)
+        curr_node = self
+        queue.add(curr_node)
 
         while len(queue):
             removed_head = queue.remove()
+            curr_node = removed_head
             print(removed_head.value)
-            if self.left:
-                queue.add(self.left)
-            if self.right:
-                queue.add(self.right)
+            if curr_node.left:
+                queue.add(curr_node.left)
+            if curr_node.right:
+                queue.add(curr_node.right)
 
     def dft_print(self):
         # V1
@@ -137,9 +139,9 @@ class BSTNode:
         #     self.right.in_order_print()
 
         # create a stack to keep track of nodes we are processing
-        stack = Stack()
+        # stack = Stack()
         # push 'self' into stack
-        stack.push(self.value)
+        # stack.push(self.value)
 
         # while something is in stack (not done processing all nodes)
             # use existing for_each() as a reference for traversal logic
