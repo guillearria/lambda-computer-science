@@ -11,14 +11,13 @@ class RingBuffer:
         # else if full
             # remove oldest value
             # replace with new value
-        if len(x) < self.capacity:
+        if len(self.storage) < self.capacity:
             self.storage[item] = self.order
         else:
             oldest_item = min(self.storage, key=self.storage.get)
             self.storage[item] = self.storage[oldest_item].pop
             self.storage[item] = self.order
         self.order += 1
-        
+
     def get(self):
-        # return the list
-        pass
+        return list(self.storage.keys())
