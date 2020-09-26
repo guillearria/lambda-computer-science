@@ -138,15 +138,17 @@ class BSTNode:
         # if self.right:
         #     self.right.in_order_print()
 
+        # V2
         # create a stack to keep track of nodes we are processing
-        # stack = Stack()
         # push 'self' into stack
-        # stack.push(self.value)
 
         # while something is in stack (not done processing all nodes)
             # use existing for_each() as a reference for traversal logic
             # push when we START processing a node, pop when node is done
             # don't forget to call print
+
+        # stack = Stack()
+        # stack.push(self.value)
 
         # while len(stack):
         #     self.for_each()
