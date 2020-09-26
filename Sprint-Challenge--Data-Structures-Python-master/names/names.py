@@ -1,4 +1,5 @@
 import time
+from stack import Stack
 
 start_time = time.time()
 
@@ -18,7 +19,12 @@ duplicates = []  # Return the list of duplicates in this data structure
 #         if name_1 == name_2:
 #             duplicates.append(name_1)
 
+stack = Stack()
+for name in names_1:
+    if name in names_2:
+        stack.push(name)
 
+duplicates = stack.storage
 
 end_time = time.time()
 print (f"{len(duplicates)} duplicates:\n\n{', '.join(duplicates)}\n\n")
