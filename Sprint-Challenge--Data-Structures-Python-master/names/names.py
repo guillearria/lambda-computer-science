@@ -19,12 +19,16 @@ duplicates = []  # Return the list of duplicates in this data structure
 #         if name_1 == name_2:
 #             duplicates.append(name_1)
 
-stack = Stack()
-for name in names_1:
-    if name in names_2:
-        stack.push(name)
+# V1: 1.5 sec runtime
+# stack = Stack()
+# for name in names_1:
+#     if name in names_2:
+#         stack.push(name)
 
-duplicates = stack.storage
+# duplicates = stack.storage
+
+# Stretch: 0.0067 sec runtime
+duplicates = set(names_1).intersection(names_2)
 
 end_time = time.time()
 print (f"{len(duplicates)} duplicates:\n\n{', '.join(duplicates)}\n\n")
