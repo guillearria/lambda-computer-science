@@ -1,23 +1,20 @@
 class RingBuffer:
     def __init__(self, capacity):
         self.capacity = capacity
-        self.storage = {}
+        self.item_storage = []
+        self.order_storage = []
         self.order = 1
         
     def append(self, item):
-        # adds element to buffer
-        # if capacity is not full
-            # append to end of list
-        # else if full
-            # remove oldest value
-            # replace with new value
-        if len(self.storage) < self.capacity:
-            self.storage[item] = self.order
+        if len(self.item_storage) < self.capacity:
+            self.item_storage.append(item)
+            self.order_storage.append(self.order)
         else:
-            oldest_item = min(self.storage, key=self.storage.get)
-            self.storage[item] = self.storage[oldest_item].pop
-            self.storage[item] = self.order
+            min_order = min(self.order_storage)
+            oldest_index = self.order_storage.index(min_order)
+            self.item_storage[oldest_index] = item
+            self.order_storage[oldest_index] = self.order
         self.order += 1
 
     def get(self):
-        return list(self.storage.keys())
+        return self.item_storage
