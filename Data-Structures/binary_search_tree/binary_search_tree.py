@@ -118,27 +118,19 @@ class BSTNode:
         #     add all children of that node into the queue
 
         queue = Queue()
-        curr_node = self
-        queue.add(curr_node)
+        cur_node = self
+        queue.add(cur_node)
 
         while len(queue):
             removed_head = queue.remove()
-            curr_node = removed_head
-            print(removed_head.value)
-            if curr_node.left:
-                queue.add(curr_node.left)
-            if curr_node.right:
-                queue.add(curr_node.right)
+            cur_node = removed_head
+            print(cur_node.value)
+            if cur_node.left:
+                queue.add(cur_node.left)
+            if cur_node.right:
+                queue.add(cur_node.right)
 
     def dft_print(self):
-        # V1
-        # if self.left:
-        #     self.left.in_order_print()
-        # print(self.value)
-        # if self.right:
-        #     self.right.in_order_print()
-
-        # V2
         # create a stack to keep track of nodes we are processing
         # push 'self' into stack
 
@@ -147,20 +139,24 @@ class BSTNode:
             # push when we START processing a node, pop when node is done
             # don't forget to call print
 
-        # stack = Stack()
-        # stack.push(self.value)
+        stack = Stack()
+        cur_node = self
+        stack.push(cur_node)
 
-        # while len(stack):
-        #     self.for_each()
-        #     print(self.value)
-
-
-        pass
+        while len(stack):
+            removed_head = stack.pop()
+            cur_node = removed_head
+            print(cur_node.value)
+            if cur_node.left:
+                stack.push(cur_node.left)
+            if cur_node.right:
+                stack.push(cur_node.right)
 
     # Stretch Goals -------------------------
     # Note: Research may be required
 
     # Print Pre-order recursive DFT
+
     def pre_order_dft(self):
         print(self.value)
         if self.left:
@@ -191,7 +187,9 @@ bst.insert(3)
 bst.insert(4)
 bst.insert(2)
 
+print("bft")
 bst.bft_print()
+print("dft")
 bst.dft_print()
 
 print("elegant methods")
