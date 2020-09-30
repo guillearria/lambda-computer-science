@@ -28,16 +28,30 @@ def binary_search(arr, target):
     # if its the same, stop
     # if target < middle item, eliminate RHS, search LHS
     # if target > middle item, eliminate LHS, search RHS
-    dup_arr = arr.copy()
-    while len(dup_arr): 
-        middle_index = (len(dup_arr)-1)//2
-        middle_value = dup_arr[middle_index]
-        if middle_value == target:
-            return arr.index(middle_value)
-        elif target < middle_value:
-            dup_arr = dup_arr[0:middle_index]
-        elif target > middle_value:
-            dup_arr = dup_arr[middle_index+1:]
 
+    # V1
+    # dup_arr = arr.copy()
+    # while len(dup_arr): 
+    #     middle_index = (len(dup_arr)-1)//2
+    #     middle_value = dup_arr[middle_index]
+    #     if middle_value == target:
+    #         return arr.index(middle_value)
+    #     elif target < middle_value:
+    #         dup_arr = dup_arr[0:middle_index]
+    #     elif target > middle_value:
+    #         dup_arr = dup_arr[middle_index+1:]
+    
+    # V2
+    low = 0
+    high = len(arr) - 1 # empty array will give negative high
+    while low <= high:
+        middle_index = (low + high)//2
+        middle_value = arr[middle_index]
+        if middle_value == target:
+            return middle_index
+        elif target < middle_value:
+            high = middle_index - 1
+        elif target > middle_value:
+            low = middle_index + 1
 
     return -1  # not found
