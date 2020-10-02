@@ -1,14 +1,16 @@
 # TO-DO: complete the helper function below to merge 2 sorted arrays
 def merge(arrA, arrB):
-    # elements = len(arrA) + len(arrB)
-    # merged_arr = [0] * elements
-    merged_arr = arrA + arrB
+    elements = len(arrA) + len(arrB)
+    merged_arr = [0] * elements
+
     return merged_arr
 
 # TO-DO: implement the Merge Sort function below recursively
 def merge_sort(arr):
-    # Your code here
-
+    if len(arr) <= 1:
+        return arr
+    
+    
 
     return arr
 
