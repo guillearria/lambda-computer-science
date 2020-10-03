@@ -8,7 +8,7 @@ def merge(arrA, arrB):
     indexB = 0
 
     # go through both copies until we run out of elements
-    while indexA < len(arrA)-1 and indexB < len(arrB)-1:
+    while indexA < len(arrA) and indexB < len(arrB):
         # if arrA has smaller element, append to sorted, update pointer
         if arrA[indexA] <= arrB[indexB]:
             merged_arr.append(arrA[indexA])
@@ -18,10 +18,10 @@ def merge(arrA, arrB):
             indexB += 1
 
     # if we run out of one list, continue with other list
-    while indexA < len(arrA)-1:
+    while indexA < len(arrA):
         merged_arr.append(arrA[indexA])
         indexA += 1
-    while indexB < len(arrB)-1:
+    while indexB < len(arrB):
         merged_arr.append(arrB[indexB])
         indexB += 1
 
@@ -33,11 +33,11 @@ def merge_sort(arr):
         return arr
 
     start = 0
-    end = len(arr)-1
+    end = len(arr)
     mid = (start+end)//2
-    merge_sort(arr[0:mid])
-    merge_sort(arr[mid:])
-    merge(arr[0:mid], arr[mid:])
+    a = merge_sort(arr[:mid])
+    b = merge_sort(arr[mid:])
+    return merge(a, b)
 
 
 # STRETCH: implement the recursive logic for merge sort in a way that doesn't
