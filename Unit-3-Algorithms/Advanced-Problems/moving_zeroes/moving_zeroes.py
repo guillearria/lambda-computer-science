@@ -11,7 +11,20 @@ def moving_zeroes(arr):
     # return arr
 
     # Attempt 2:
+    # create new list
+    # loop through arr
+    # if num is not zero, add to list, remove from arr
+    # add remaining arr to new list
+    zero_arr = []
+    num_arr = []
+    for num in arr:
+        if num != 0:
+            num_arr.append(num)
+        else:
+            zero_arr.append(num)
 
+    num_arr.extend(zero_arr)
+    return num_arr
 
 if __name__ == '__main__':
     # Use the main function here to test out your implementation
