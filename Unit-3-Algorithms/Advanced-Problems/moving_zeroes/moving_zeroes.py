@@ -3,9 +3,14 @@ Input: a List of integers
 Returns: a List of integers
 '''
 def moving_zeroes(arr):
-    # Your code here
+    # Attempt 1: did not work because of negatives
+    # sort list
+    # reverse it
+    # arr = sorted(arr)
+    # arr.reverse()
+    # return arr
 
-    pass
+    # Attempt 2:
 
 
 if __name__ == '__main__':
