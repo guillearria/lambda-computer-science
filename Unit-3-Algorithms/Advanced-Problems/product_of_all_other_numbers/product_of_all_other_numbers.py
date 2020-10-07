@@ -3,9 +3,21 @@ Input: a List of integers
 Returns: a List of integers
 '''
 def product_of_all_other_numbers(arr):
-    # Your code here
-
-    pass
+    # init results arr
+    # enumarate through arr, get index
+        # get left slice
+        # get right slice
+        # merge the two slices
+        # join with multiplication sign, and eval
+        # add to results
+    results = []
+    for i, num in enumerate(arr):
+        left_slice = arr[:i]
+        right_slice = arr[i+1:]
+        complete_slice = left_slice + right_slice
+        result = eval("*".join(map(str, complete_slice)))
+        results.append(result)
+    return results
 
 
 if __name__ == '__main__':
