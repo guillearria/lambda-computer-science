@@ -14,6 +14,24 @@ def single_number(arr):
     #     if num not in dup_arr:
     #         return num
 
+    # Attempt 2, inefficient
+    # init count dictionary
+    # loop through arr, nums
+        # if num  in keys, add to count
+        # else, create new key with val 1
+    # look for min value of dictionary, return key
+
+    # Attempt 3
+    # init set of arr
+    # loop through set
+        # remove num from arr
+        # if num not in arr, return num
+    dups_removed = set(arr)
+    for num in dups_removed:
+        arr.remove(num)
+        if num not in arr:
+            return num
+
 if __name__ == '__main__':
     # Use the main function to test your implementation
     arr = [1, 1, 4, 4, 5, 5, 3, 3, 9, 0, 0]
