@@ -12,19 +12,38 @@ def sliding_window_max(nums, k):
     # get window slice
     # find max, add to results
     
-    results = []
-    for i in range(len(nums)):
-        if i+k <= len(nums):
-            window = nums[i:i+k]
-            results.append(sorted(window)[-1])
+    # results = []
+    # for i in range(len(nums)):
+    #     if i+k <= len(nums):
+    #         window = nums[i:i+k]
+    #         results.append(max(window))
 
     # Optimized Solution:
-        #
+        # get first window
+        # determine current max
+        # append current max to results
+        # pop first item in window
+        # determine new value2
+        # if popped val is current max
+            # determine new current max
+        # else if new value is greater than current max
+            # update current max to new value
+        
+        # append new value to window
 
-    # results = []
-    # cache = {}
-    # for 
-    
+    results = []
+    window = nums[:k]
+    cur_max = max(window)
+    results.append(cur_max)
+    for i in range(k, len(nums)):
+        pop_val = window.pop(0)
+        next_val = nums[i]
+        window.append(next_val)
+        if pop_val == cur_max:
+            cur_max = max(window)
+        elif next_val > cur_max:
+            cur_max = next_val
+        results.append(cur_max)
     return results
 
 
