@@ -17,8 +17,10 @@ Returns: an integer
 
 #     return cookies(0, n)
 
-# Optimized:
-def eating_cookies(n):
+cache = {}
+
+# Optimized for large inputs:
+def eating_cookies(n, idk={}):
     # base cases:
     # if no cookie, no way to eat it
     # if theres 1 cookie, only 1 way to eat it
@@ -29,8 +31,10 @@ def eating_cookies(n):
     if n == 2: return 2
     if n == 3: return 4
 
-    return eating_cookies(n-1) + eating_cookies(n-2) + eating_cookies(n-3) 
-    
+    if n not in cache:
+        cache[n] = eating_cookies(n-1) + eating_cookies(n-2) + eating_cookies(n-3) 
+        
+    return cache[n] 
 
 
 if __name__ == "__main__":
