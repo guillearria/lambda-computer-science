@@ -2,7 +2,10 @@
 Input: a List of integers as well as an integer `k` representing the size of the sliding window
 Returns: a List of integers
 '''
+import time
+
 def sliding_window_max(nums, k):
+    start = time.perf_counter()
     # init results list
     # loop through nums
     # get window slice
@@ -12,6 +15,9 @@ def sliding_window_max(nums, k):
         if i+k <= len(nums):
             window = nums[i:i+k]
             results.append(max(window))
+    
+    end = time.perf_counter()
+    print("Runtime:", end-start, "seconds")
     return results
 
 
