@@ -16,7 +16,7 @@ def sliding_window_max(nums, k):
     for i in range(len(nums)):
         if i+k <= len(nums):
             window = nums[i:i+k]
-            results.append(max(window))
+            results.append(sorted(window)[-1])
 
     # Optimized Solution:
         #
