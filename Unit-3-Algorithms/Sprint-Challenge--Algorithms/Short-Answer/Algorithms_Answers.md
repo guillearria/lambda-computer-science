@@ -10,10 +10,16 @@ c) I'm assuming since there is no input size of n, the time complexity would be 
 
 ## Exercise II
 
-# throwing eggs off n-story building, many eggs
-# eggs only break at floor equal or greater to f
-# strategy to determine f such that dropped + broken eggs is minimized
+<!-- throwing eggs off n-story building, many eggs -->
+<!-- eggs only break at floor equal or greater to f -->
+<!-- strategy to determine f such that dropped + broken eggs is minimized -->
 
-#
+<!-- similar to knapsack problem -->
+<!-- bunch of objects, want to maximize value of haul -->
+<!-- which items do we take? -->
+
+<!-- No idea what this question is asking though....  -->
+<!-- wouldn't the best strategy just be to stay below floor f and have 0 broken eggs and 100% dropped? -->
+<!-- Ask iris -->
 
 
