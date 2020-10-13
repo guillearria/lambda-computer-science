@@ -14,12 +14,15 @@ c) I'm assuming since there is no input size of n, the time complexity would be 
 <!-- eggs only break at floor equal or greater to f -->
 <!-- strategy to determine f such that dropped + broken eggs is minimized -->
 
-<!-- similar to knapsack problem -->
-<!-- bunch of objects, want to maximize value of haul -->
-<!-- which items do we take? -->
+I understand this question now and I believe a good solution for this would be similar to a binary search. These would be the steps:
 
-<!-- No idea what this question is asking though....  -->
-<!-- wouldn't the best strategy just be to stay below floor f and have 0 broken eggs and 100% dropped? -->
-<!-- Ask iris -->
-
-
+1. Create a sorted list with individual n-stories as value: ie. range(1, n+1)
+1. Find the middle item in the list
+1. If egg breaks at middle value:
+  * Check if egg breaks at (middle value - 1):
+    * If it does not, then middle value is our desired f value
+    * If it does, we're too high, eliminate all values after middle value (RHS), repeat from step 2
+1. If egg does not break at middle value:
+  * Check if egg breaks at (middle value - 1):
+    * If it does, (middle value + 1) is our desired f value
+    * If it does not, we're too low, eliminate all values before middle value (LHS), repeat from step 2
