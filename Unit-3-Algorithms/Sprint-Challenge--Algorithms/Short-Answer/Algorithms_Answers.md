@@ -23,6 +23,6 @@ I understand this question now and I believe a good solution for this would be s
     * If it does not, then middle value is our desired f value
     * If it does, we're too high, eliminate all values after middle value (RHS), repeat from step 2
 1. If egg does not break at middle value:
-  - Check if egg breaks at (middle value - 1):
+  - Check if egg breaks at (middle value + 1):
     * If it does, (middle value + 1) is our desired f value
     * If it does not, we're too low, eliminate all values before middle value (LHS), repeat from step 2
