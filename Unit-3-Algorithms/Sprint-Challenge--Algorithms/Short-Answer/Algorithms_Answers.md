@@ -19,10 +19,10 @@ I understand this question now and I believe a good solution for this would be s
 1. Create a sorted list with individual n-stories as value: ie. range(1, n+1)
 1. Find the middle item in the list
 1. If egg breaks at middle value:
-  * Check if egg breaks at (middle value - 1):
-    * If it does not, then middle value is our desired f value
-    * If it does, we're too high, eliminate all values after middle value (RHS), repeat from step 2
+  1. Check if egg breaks at (middle value - 1):
+    1. If it does not, then middle value is our desired f value
+    1. If it does, we're too high, eliminate all values after middle value (RHS), repeat from step 2
 1. If egg does not break at middle value:
-  * Check if egg breaks at (middle value - 1):
-    * If it does, (middle value + 1) is our desired f value
-    * If it does not, we're too low, eliminate all values before middle value (LHS), repeat from step 2
+  1. Check if egg breaks at (middle value - 1):
+    1. If it does, (middle value + 1) is our desired f value
+    1. If it does not, we're too low, eliminate all values before middle value (LHS), repeat from step 2
