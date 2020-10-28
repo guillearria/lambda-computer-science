@@ -22,7 +22,7 @@ class HashTable:
     """
 
     def __init__(self, capacity):
-        # Your code here
+        self.capacity = MIN_CAPACITY
 
     def get_num_slots(self):
         """
@@ -63,7 +63,7 @@ class HashTable:
             (and new bits on the right-hand-side are zeros).
             This is the same as multiplying x by 2**y.
         """
-        hash = 5381
+        hash = 5381 # unsigned long hash
         for x in key:
             hash = ((hash << 5) + hash) + ord(x)
         return hash & 0xFFFFFFFF
@@ -84,7 +84,11 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        # turn key into an index
+        hashed_key = self.djb2(key)
+
+        # put value at that index in hash table array
+        my_arr[hashed_key] = value
 
     def delete(self, key):
         """
@@ -104,7 +108,15 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        # turn key into an index
+        hashed_key = self.djb2(key)
+
+        # lookup array with this index
+        try:
+            val = my_arr[hashed_key]
+            return val
+        except:
+            return None
 
     def resize(self, new_capacity):
         """
