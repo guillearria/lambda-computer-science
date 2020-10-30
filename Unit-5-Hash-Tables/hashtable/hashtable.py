@@ -132,11 +132,11 @@ class HashTable:
 
         Implement this.
         """
-        # turn key into an index
-        index = self.djb2(key)
+        # turn key into an index, include modulo
+        idx = self.hash_index(key)
 
         # put value at that index in hash table array
-        self.storage[index] = value
+        self.storage[idx] = value
 
     def delete(self, key):
         """
@@ -146,8 +146,14 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        # turn key into an index, include modulo
+        idx = self.hash_index(key)
 
+        if self.storage[idx] == None:
+            return no key
+
+        self.storage[idx] = None
+        
     def get(self, key):
         """
         Retrieve the value stored with the given key.
