@@ -10,6 +10,7 @@ class HashTableEntry:
 
 
 # Hash table can't have fewer than this many slots
+# can be used fo resize
 MIN_CAPACITY = 8
 
 
@@ -22,7 +23,8 @@ class HashTable:
     """
 
     def __init__(self, capacity):
-        self.capacity = MIN_CAPACITY
+        self.capacity = max(capacity, MIN_CAPACITY)
+        self.storage = [None] * self.capacity
 
     def get_num_slots(self):
         """
@@ -34,7 +36,7 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        return len(self.storage)
 
     def get_load_factor(self):
         """
@@ -49,9 +51,36 @@ class HashTable:
         FNV-1 Hash, 64-bit
 
         Implement this, and/or DJB2.
-        """
 
-        # Your code here
+        algorithm fnv-1 is
+            hash := FNV_offset_basis
+
+            for each byte_of_data to be hashed do
+                hash := hash × FNV_prime
+                hash := hash XOR byte_of_data
+
+            # XOR = BITWISE EXCLUSIVE = ^
+
+            return hash 
+
+        FNV_offset_basis, 64-bit FNV offset basis value: 14695981039346656037 
+            (in hex, 0xcbf29ce484222325).
+        FNV_prime, 64-bit FNV prime value: 1099511628211 
+            (in hex, 0x100000001b3).
+
+        Start at FNV_offset_basis, 
+        """
+        FNV_offset_basis = 14695981039346656037
+        FNV_prime = 1099511628211
+        hash = FNV_offset_basis
+
+        bytes_to_hash = key.encode()
+
+        for byte in bytes_to_hash:
+            hash = hash * FNV_prime
+            hash = hash ^ byte # XOR = BITWISE EXCLUSIVE OPERATOR 
+
+        return hash
 
     def djb2(self, key):
         """
@@ -59,14 +88,33 @@ class HashTable:
 
         Implement this, and/or FNV-1.
 
+        unsigned long
+        hash(unsigned char *str)
+        {
+            unsigned long hash = 5381;
+            int c;
+
+            while (c = *str++)
+                hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+
+            return hash;
+        }
+
         x << y: Returns x with the bits shifted to the left by y places
             (and new bits on the right-hand-side are zeros).
-            This is the same as multiplying x by 2**y.
+            This, same as multiplying x by 2**y.
         """
         hash = 5381 # unsigned long hash
-        for x in key:
-            hash = ((hash << 5) + hash) + ord(x)
-        return hash & 0xFFFFFFFF
+        bytes_to_hash = key.encode()
+
+        for byte in bytes_to_hash:
+            hash = ((hash << 5) + byte)
+
+        return hash
+        # for x in key:
+        #     hash = ((hash << 5) + hash) + ord(x)
+
+        # return hash & 0xFFFFFFFF
 
     def hash_index(self, key):
         """
@@ -85,10 +133,10 @@ class HashTable:
         Implement this.
         """
         # turn key into an index
-        hashed_key = self.djb2(key)
+        index = self.djb2(key)
 
         # put value at that index in hash table array
-        my_arr[hashed_key] = value
+        self.storage[index] = value
 
     def delete(self, key):
         """
@@ -109,11 +157,11 @@ class HashTable:
         Implement this.
         """
         # turn key into an index
-        hashed_key = self.djb2(key)
+        index = self.djb2(key)
 
         # lookup array with this index
         try:
-            val = my_arr[hashed_key]
+            val = my_arr[index]
             return val
         except:
             return None
