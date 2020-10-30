@@ -25,6 +25,7 @@ class HashTable:
     def __init__(self, capacity):
         self.capacity = max(capacity, MIN_CAPACITY)
         self.storage = [None] * self.capacity
+        self.load = 0
 
     def get_num_slots(self):
         """
@@ -78,7 +79,7 @@ class HashTable:
 
         for byte in bytes_to_hash:
             hash = hash * FNV_prime
-            hash = hash ^ byte # XOR = BITWISE EXCLUSIVE OPERATOR 
+            hash = hash ^ byte  # XOR = BITWISE EXCLUSIVE OPERATOR
 
         return hash
 
@@ -104,7 +105,7 @@ class HashTable:
             (and new bits on the right-hand-side are zeros).
             This, same as multiplying x by 2**y.
         """
-        hash = 5381 # unsigned long hash
+        hash = 5381  # unsigned long hash
         bytes_to_hash = key.encode()
 
         for byte in bytes_to_hash:
@@ -138,6 +139,9 @@ class HashTable:
         # put value at that index in hash table array
         self.storage[idx] = value
 
+        # collisions cause this count to fail
+        self.load += 1
+
     def delete(self, key):
         """
         Remove the value stored with the given key.
@@ -150,10 +154,11 @@ class HashTable:
         idx = self.hash_index(key)
 
         if self.storage[idx] == None:
-            return no key
+            return "Warning: key does not exist"
+        else:
+            self.storage[idx] = None
+            self.load -= 1
 
-        self.storage[idx] = None
-        
     def get(self, key):
         """
         Retrieve the value stored with the given key.
