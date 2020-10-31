@@ -130,11 +130,17 @@ class HashTable:
         Store the value with the given key.
 
         Hash collisions should be handled with Linked List Chaining.
+            * One LL per index, each node points to the next..
+            * Python uses "open addressing" or "linear probing"
 
         Implement this.
         """
         # turn key into an index, include modulo
         idx = self.hash_index(key)
+
+        # check for collision
+        if self.storage[idx]:
+            print("COLLISION DETECTED!")
 
         # put value at that index in hash table array
         self.storage[idx] = value
