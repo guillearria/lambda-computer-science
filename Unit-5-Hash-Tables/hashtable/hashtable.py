@@ -144,15 +144,20 @@ class HashTable:
             print("COLLISION DETECTED!")
             # while the next node is not None, iterate to next node
             while cur_node.next:
-                cur_node = cur_node.next
+                # replace value if key exists
+                if cur_node.next.key == key:
+                    cur_node.next.value = value
+                    self.load += 1
+                    break
+                else:
+                    cur_node = cur_node.next
             # when next node is None, replace None with new entry
             cur_node.next = HashTableEntry(key, value)
         else:
             # put value at that index in hash table array
             cur_node = HashTableEntry(key, value)
-            # collisions cause this count to fail
+            self.load += 1
 
-        self.load += 1
 
     def delete(self, key):
         """
