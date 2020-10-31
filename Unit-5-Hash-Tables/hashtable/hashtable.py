@@ -73,15 +73,15 @@ class HashTable:
         """
         FNV_offset_basis = 14695981039346656037
         FNV_prime = 1099511628211
-        hash = FNV_offset_basis
+        hash_val = FNV_offset_basis
 
         bytes_to_hash = key.encode()
 
         for byte in bytes_to_hash:
-            hash = hash * FNV_prime
-            hash = hash ^ byte  # XOR = BITWISE EXCLUSIVE OPERATOR
+            hash_val = hash_val * FNV_prime
+            hash_val = hash_val ^ byte  # XOR = BITWISE EXCLUSIVE OPERATOR
 
-        return hash
+        return hash_val
 
     def djb2(self, key):
         """
@@ -105,13 +105,14 @@ class HashTable:
             (and new bits on the right-hand-side are zeros).
             This, same as multiplying x by 2**y.
         """
-        hash = 5381  # unsigned long hash
+        hash_val = 5381  # unsigned long hash
         bytes_to_hash = key.encode()
 
         for byte in bytes_to_hash:
-            hash = ((hash << 5) + byte)
+            hash_val = ((hash_val << 5) + byte)
 
-        return hash
+        return hash_val
+
         # for x in key:
         #     hash = ((hash << 5) + hash) + ord(x)
 
