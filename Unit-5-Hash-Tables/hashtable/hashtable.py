@@ -137,16 +137,22 @@ class HashTable:
         """
         # turn key into an index, include modulo
         idx = self.hash_index(key)
+        cur_node = self.storage[idx]
 
         # check for collision
-        if self.storage[idx]:
+        if cur_node:
             print("COLLISION DETECTED!")
-
-        # put value at that index in hash table array
-        self.storage[idx] = value
-
-        # collisions cause this count to fail
-        self.load += 1
+            # while the next node is not None, iterate to next node
+            while cur_node.next:
+                cur_node = cur_node.next
+            # when next node is None, replace None with new entry
+            cur_node.next = HashTableEntry(key, value)
+            
+        else:
+            # put value at that index in hash table array
+            cur_node = HashTableEntry(key, value)
+            # collisions cause this count to fail
+            self.load += 1
 
     def delete(self, key):
         """
@@ -159,10 +165,10 @@ class HashTable:
         # turn key into an index, include modulo
         idx = self.hash_index(key)
 
-        if self.storage[idx] == None:
+        if cur_node == None:
             return "Warning: key does not exist"
         else:
-            self.storage[idx] = None
+            cur_node = None
             self.load -= 1
 
     def get(self, key):
