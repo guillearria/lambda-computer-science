@@ -45,7 +45,7 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        return self.load
 
     def fnv1(self, key):
         """
@@ -113,6 +113,7 @@ class HashTable:
 
         return hash_val
 
+        # SIMILAR:
         # for x in key:
         #     hash = ((hash << 5) + hash) + ord(x)
 
@@ -202,12 +203,23 @@ class HashTable:
         """
         # turn key into an index
         index = self.djb2(key)
+        cur_node = self.storage[index]
 
-        # lookup array with this index
-        try:
-            val = my_arr[index]
-            return val
-        except:
+        # if cur node is an entry, check key
+        if cur_node:
+            if cur_node.key == key:
+                return cur_node.value
+            # if not given key, check LL
+            else:
+                while cur_node.next:
+                    if cur_node.next.key == key:
+                        return cur_node.next.value
+                    else:
+                        cur_node = cur_node.next
+                # if no key match is found, return None
+                return None
+        # if cur node is None return None
+        else:
             return None
 
     def resize(self, new_capacity):
