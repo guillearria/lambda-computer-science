@@ -177,7 +177,11 @@ class HashTable:
         node_deleted = False
 
         if cur_node.key == key:
-            cur_node = None
+            if cur_node.next:
+                self.storage[idx] = cur_node.next
+            else:
+                self.storage[idx] = None
+            node_deleted = True
         else:
             while cur_node.next:
                 if cur_node.next.key == key:
@@ -193,7 +197,7 @@ class HashTable:
         if node_deleted:
             self.load -= 1
         else:
-            print("Warning: key does not exist")
+            print(f"Warning: {key} key does not exist")
 
     def get(self, key):
         """
