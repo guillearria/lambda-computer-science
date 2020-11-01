@@ -62,14 +62,14 @@ class HashTable:
 
             # XOR = BITWISE EXCLUSIVE = ^
 
-            return hash 
+            return hash
 
-        FNV_offset_basis, 64-bit FNV offset basis value: 14695981039346656037 
+        FNV_offset_basis, 64-bit FNV offset basis value: 14695981039346656037
             (in hex, 0xcbf29ce484222325).
-        FNV_prime, 64-bit FNV prime value: 1099511628211 
+        FNV_prime, 64-bit FNV prime value: 1099511628211
             (in hex, 0x100000001b3).
 
-        Start at FNV_offset_basis, 
+        Start at FNV_offset_basis,
         """
         FNV_offset_basis = 14695981039346656037
         FNV_prime = 1099511628211
@@ -143,23 +143,26 @@ class HashTable:
 
         # check for collision
         if cur_node:
-            print("COLLISION DETECTED!")
-            # while the next node is not None, iterate to next node
-            while cur_node.next:
-                # replace value if key exists
-                if cur_node.next.key == key:
-                    cur_node.next.value = value
-                    self.load += 1
-                    break
-                else:
-                    cur_node = cur_node.next
-            # when next node is None, replace None with new entry
-            cur_node.next = HashTableEntry(key, value)
+            if cur_node.key == key:
+                cur_node.value = value
+                self.load += 1
+            else:
+                # while the next node is not None, iterate to next node
+                while cur_node.next:
+                    # replace value if key exists
+                    if cur_node.next.key == key:
+                        cur_node.next.value = value
+                        self.load += 1
+                        return
+                    else:
+                        cur_node = cur_node.next
+                # when next node is None, replace None with new entry
+                cur_node.next = HashTableEntry(key, value)
+                self.load += 1
         else:
             # put value at that index in hash table array
-            cur_node = HashTableEntry(key, value)
+            self.storage[idx] = HashTableEntry(key, value)
             self.load += 1
-
 
     def delete(self, key):
         """
@@ -202,8 +205,8 @@ class HashTable:
         Implement this.
         """
         # turn key into an index
-        index = self.djb2(key)
-        cur_node = self.storage[index]
+        idx = self.hash_index(key)
+        cur_node = self.storage[idx]
 
         # if cur node is an entry, check key
         if cur_node:
