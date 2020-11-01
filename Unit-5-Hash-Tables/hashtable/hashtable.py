@@ -143,16 +143,15 @@ class HashTable:
 
         # check for collision
         if cur_node:
+            # replace value if key exists
             if cur_node.key == key:
                 cur_node.value = value
-                self.load += 1
             else:
                 # while the next node is not None, iterate to next node
                 while cur_node.next:
                     # replace value if key exists
                     if cur_node.next.key == key:
                         cur_node.next.value = value
-                        self.load += 1
                         return
                     else:
                         cur_node = cur_node.next

@@ -86,6 +86,9 @@ class TestHashTable(unittest.TestCase):
         return_value = ht.get("key-9")
         self.assertTrue(return_value == "new-val-9")
 
+        load = ht.get_load_factor()
+        print(load)
+
     # def test_hash_table_removes_correctly(self):
     #     ht = HashTable(8)
 
