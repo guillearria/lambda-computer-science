@@ -147,7 +147,7 @@ class HashTable:
 
         if lf >= 0.7:
             # num slots = num load/lf
-            ideal_capacity = int(self.load//lf)
+            ideal_capacity = int(self.load+1//lf)
             self.resize(ideal_capacity)
 
         # turn key into an index, include modulo
@@ -220,6 +220,7 @@ class HashTable:
 
         Implement this.
         """
+        # print([x.value if x else None for x in self.storage])
         # turn key into an index
         idx = self.hash_index(key)
         cur_node = self.storage[idx]
@@ -248,8 +249,21 @@ class HashTable:
 
         Implement this.
         """
+        # duplicate current storage
+        old_storage = self.storage.copy()
+
+        # update resized hashtable
         self.capacity = new_capacity
-        self.storage.extend([None]*new_capacity)
+        self.storage = [None] * new_capacity
+        self.load = 0
+
+        # iterate down old storage
+        for entry in old_storage:
+            cur_node = entry
+            while cur_node:
+                self.put(cur_node.key, cur_node.value)
+                cur_node = cur_node.next
+
 
 
 if __name__ == "__main__":
