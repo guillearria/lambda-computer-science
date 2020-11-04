@@ -10,7 +10,6 @@ class HashTableEntry:
 
 
 # Hash table can't have fewer than this many slots
-# can be used fo resize
 MIN_CAPACITY = 8
 
 
@@ -22,8 +21,8 @@ class HashTable:
     Implement this.
     """
 
-    def __init__(self, capacity):
-        self.capacity = max(capacity, MIN_CAPACITY)
+    def __init__(self, capacity=MIN_CAPACITY):
+        self.capacity = capacity
         self.storage = [None] * self.capacity
         self.load = 0
 
@@ -43,10 +42,14 @@ class HashTable:
         """
         Return the load factor for this hash table.
 
+        LF > 0.7 = OVERLOADED
+        LF < 0.2 = UNDERLOADED
+
         Implement this.
         """
-        # (num of elements) /(num of slots)
+        # lf = (num of elements) /(num of slots)
         load_factor = self.load/self.capacity
+
         return load_factor
 
     def fnv1(self, key):
@@ -139,6 +142,14 @@ class HashTable:
 
         Implement this.
         """
+        # check load factor, resize if necessary
+        lf = self.get_load_factor()
+
+        if lf > 0.7:
+            # num slots = num load/lf
+            ideal_capacity = self.load//lf
+            self.resize(ideal_capacity)
+
         # turn key into an index, include modulo
         idx = self.hash_index(key)
         cur_node = self.storage[idx]
@@ -237,7 +248,8 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        self.capacity = new_capacity
+        self.storage.extend([None]*new_capacity)
 
 
 if __name__ == "__main__":
