@@ -145,9 +145,9 @@ class HashTable:
         # check load factor, resize if necessary
         lf = self.get_load_factor()
 
-        if lf > 0.7:
+        if lf >= 0.7:
             # num slots = num load/lf
-            ideal_capacity = self.load//lf
+            ideal_capacity = int(self.load//lf)
             self.resize(ideal_capacity)
 
         # turn key into an index, include modulo
