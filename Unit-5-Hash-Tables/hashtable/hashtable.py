@@ -220,7 +220,6 @@ class HashTable:
 
         Implement this.
         """
-        # print([x.value if x else None for x in self.storage])
         # turn key into an index
         idx = self.hash_index(key)
         cur_node = self.storage[idx]
@@ -257,7 +256,7 @@ class HashTable:
         self.storage = [None] * new_capacity
         self.load = 0
 
-        # iterate down old storage
+        # iterate down old storage, put to new
         for entry in old_storage:
             cur_node = entry
             while cur_node:
