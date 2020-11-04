@@ -45,7 +45,9 @@ class HashTable:
 
         Implement this.
         """
-        return self.load
+        # (num of elements) /(num of slots)
+        load_factor = self.load/self.capacity
+        return load_factor
 
     def fnv1(self, key):
         """
