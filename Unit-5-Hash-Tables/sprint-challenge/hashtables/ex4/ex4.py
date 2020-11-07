@@ -1,10 +1,17 @@
 def has_negatives(a):
     """
-    YOUR CODE HERE
+    Accepts list of ints, returns list of positive ints that have corresponding 
+        negative int.
     """
-    # Your code here
+    positives = [num for num in a if num > 0]
+    negatives = [num for num in a if num < 0]
+    results = []
 
-    return result
+    for pos in positives:
+        if -pos in negatives:
+            results.append(pos)
+
+    return results
 
 
 if __name__ == "__main__":
