@@ -1,10 +1,28 @@
 def intersection(arrays):
     """
-    YOUR CODE HERE
+    Returns intersection between a list of lists of integers.
+        ie. numbers that exist in all lists.
     """
-    # Your code here
+    num_counts = {}
+    combined_arrs = []
+    matching_count = len(arrays)
+    intersection = []
 
-    return result
+    for arr in arrays:
+        combined_arrs.extend(arr)
+
+    for num in combined_arrs:
+        if num in num_counts:
+            num_counts[num] += 1
+        else:
+            num_counts[num] = 1
+
+    for num, count in num_counts.items():
+        if count == matching_count:
+            intersection.append(num)
+
+    return intersection
+
 
 
 if __name__ == "__main__":
