@@ -19,7 +19,11 @@ class Graph:
         """
         Add a directed edge to the graph.
         """
-        self.vertices[v1].add(v2)
+        vertices = list(self.vertices.keys)
+        if v1 in vertices and v2 in vertices:
+            self.vertices[v1].add(v2)
+        else:
+            raise Exception("One or more vertices not found!")
 
     def get_neighbors(self, vertex_id):
         """
