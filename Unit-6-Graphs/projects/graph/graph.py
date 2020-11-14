@@ -101,20 +101,33 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
+        # enqueue PATHS instead of single vertex
+        # during neighbors loop, make path copy and add to existing path 
+        
         queue = Queue()
         queue.enqueue(starting_vertex)
 
+        paths = [[starting_vertex]]
+        prev_path_idx = 0
+
         visited = set()
-        paths = {}
 
         while queue.size() > 0:
             cur_node = queue.dequeue()
             if cur_node not in visited:
                 visited.add(cur_node)
-                
                 neighbors = self.get_neighbors(cur_node)
+                
                 for neighbor in neighbors:
-                    queue.enqueue(neighbor)
+                    new_path = paths[prev_path_idx].copy()
+                    new_path.append(neighbor)
+                    if neighbor == destination_vertex:
+                        return new_path
+                    else:
+                        paths.append(new_path)
+                        queue.enqueue(neighbor)
+                
+                prev_path_idx +=1
 
     def dfs(self, starting_vertex, destination_vertex):
         """
