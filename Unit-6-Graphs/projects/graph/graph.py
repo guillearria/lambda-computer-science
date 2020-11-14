@@ -74,7 +74,7 @@ class Graph:
         stack = Stack()
         stack.push(starting_vertex)
 
-        visited = set() # better than list, O(1)
+        visited = set()
 
         while stack.size() > 0:
             cur_node = stack.pop()
@@ -101,7 +101,20 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        queue = Queue()
+        queue.enqueue(starting_vertex)
+
+        visited = set()
+        paths = {}
+
+        while queue.size() > 0:
+            cur_node = queue.dequeue()
+            if cur_node not in visited:
+                visited.add(cur_node)
+                
+                neighbors = self.get_neighbors(cur_node)
+                for neighbor in neighbors:
+                    queue.enqueue(neighbor)
 
     def dfs(self, starting_vertex, destination_vertex):
         """
