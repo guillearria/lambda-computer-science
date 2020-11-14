@@ -3,9 +3,11 @@ Simple graph implementation
 """
 from util import Stack, Queue  # These may come in handy
 
+
 class Graph:
 
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
+
     def __init__(self):
         self.vertices = {}
 
@@ -43,18 +45,17 @@ class Graph:
         queue = Queue()
         queue.enqueue(starting_vertex)
 
-        visited = set() # better than list, O(1)
+        visited = set()  # better than list, O(1)
 
         while queue.size() > 0:
             cur_node = queue.dequeue()
             if cur_node not in visited:
                 print(cur_node)
                 visited.add(cur_node)
-                
+
                 neighbors = self.get_neighbors(cur_node)
                 for neighbor in neighbors:
                     queue.enqueue(neighbor)
-        
 
     def dft(self, starting_vertex):
         """
@@ -66,10 +67,10 @@ class Graph:
         # use STACK for BFT
         # put starting vertex on top of stack
         # while stack is NOT empty
-            # pop off top of stack (starting vertex), cur node
-            # check if we have visited this node
-                # if not, add it to visited set and print
-                # also add each of its neighbors into stack
+        # pop off top of stack (starting vertex), cur node
+        # check if we have visited this node
+        # if not, add it to visited set and print
+        # also add each of its neighbors into stack
 
         stack = Stack()
         stack.push(starting_vertex)
@@ -81,7 +82,7 @@ class Graph:
             if cur_node not in visited:
                 print(cur_node)
                 visited.add(cur_node)
-                
+
                 neighbors = self.get_neighbors(cur_node)
                 for neighbor in neighbors:
                     stack.push(neighbor)
@@ -97,13 +98,10 @@ class Graph:
 
     def bfs(self, starting_vertex, destination_vertex):
         """
-        Return a list containing the shortest path from
+        Return a list containing a path from
         starting_vertex to destination_vertex in
-        breath-first order.
+        depth-first order.
         """
-        # enqueue PATHS instead of single vertex
-        # during neighbors loop, make path copy and add to existing path 
-        
         queue = Queue()
         queue.enqueue(starting_vertex)
 
@@ -117,7 +115,6 @@ class Graph:
             if cur_node not in visited:
                 visited.add(cur_node)
                 neighbors = self.get_neighbors(cur_node)
-                
                 for neighbor in neighbors:
                     new_path = paths[prev_path_idx].copy()
                     new_path.append(neighbor)
@@ -126,16 +123,40 @@ class Graph:
                     else:
                         paths.append(new_path)
                         queue.enqueue(neighbor)
-                
-                prev_path_idx +=1
+                        print(paths)
+
+                prev_path_idx += 1
 
     def dfs(self, starting_vertex, destination_vertex):
         """
-        Return a list containing a path from
+        Return a list containing the shortest path from
         starting_vertex to destination_vertex in
-        depth-first order.
+        breath-first order.
         """
-        pass  # TODO
+        # enqueue PATHS instead of single vertex
+        # during neighbors loop, make path copy and add to existing path
+
+        stack = Stack()
+        stack.push(starting_vertex)
+
+        paths = {starting_vertex: [starting_vertex],}
+
+        visited = set()
+
+        while stack.size() > 0:
+            cur_node = stack.pop()
+            if cur_node not in visited:
+                visited.add(cur_node)
+                neighbors = self.get_neighbors(cur_node)
+                for neighbor in neighbors:
+                    new_path = paths[cur_node].copy()
+                    new_path.append(neighbor)
+                    if neighbor == destination_vertex:
+                        return new_path
+                    else:
+                        paths[neighbor] = new_path
+                        stack.push(neighbor)
+                        print(paths)
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
         """
@@ -146,6 +167,7 @@ class Graph:
         This should be done using recursion.
         """
         pass  # TODO
+
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
