@@ -138,6 +138,47 @@ class Graph:
 
                 prev_path_idx += 1
 
+# IN-CLASS:
+#         # make a queue
+#         q = Queue()
+# ​
+#         # make a set to track which nodes we have visited
+#         visited = set()
+# ​
+#         # enqueue the PATH TO the starting node
+#         q.enqueue([starting_vertex])
+# ​
+#         # loop while the queue isn't empty
+#         while q.size() > 0:
+#             # dequeue, this is our current path
+#             current_path = q.dequeue()
+#             current_node = current_path[-1]
+# ​
+#             # check if we have found our target node
+#             if current_node == destination_vertex:
+#                 # then we are done! return
+#                 return current_path
+# ​
+#             # check if we've yet visited
+#             if current_node not in visited:
+#             ## if not, we go to the node
+#             ### mark as visited == add to visited set
+#                 visited.add(current_node)
+# ​
+#             ### get the neighbors
+#                 neighbors = self.get_neighbors(current_node)
+#             ### iterate over the neighbors, enqueue the PATH to them
+#                 for neighbor in neighbors:
+#                     # path_copy = list(current_path)
+#                     # path_copy = current_path.copy()
+#                     # path_copy = copy.copy(current_path)
+#                     # path_copy = current_path[:]
+# ​
+#                     # path_copy.append(neighbor)
+#                     path_copy = current_path + [neighbor]
+# ​
+#                     q.enqueue(path_copy)
+
     def dfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing the shortest path from
