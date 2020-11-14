@@ -39,11 +39,21 @@ class Graph:
         # check every node/connection ONCE
         # keep track with visited set
         # use QUEUE for BFT
-        
-        # queue = queue()
-        # visited = set()
 
-        pass
+        queue = Queue()
+        queue.enqueue(starting_vertex)
+
+        visited = set() # better than list, O(1)
+
+        while queue.size() > 0:
+            cur_node = queue.dequeue()
+            if cur_node not in visited:
+                print(cur_node)
+                visited.add(cur_node)
+                
+                neighbors = self.get_neighbors(cur_node)
+                for neighbor in neighbors:
+                    queue.enqueue(neighbor)
         
 
     def dft(self, starting_vertex):
@@ -75,7 +85,6 @@ class Graph:
                 neighbors = self.get_neighbors(cur_node)
                 for neighbor in neighbors:
                     stack.push(neighbor)
-
 
     def dft_recursive(self, starting_vertex):
         """
