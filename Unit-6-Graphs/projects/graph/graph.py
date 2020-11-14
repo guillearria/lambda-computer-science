@@ -66,13 +66,13 @@ class Graph:
 
         visited = set() # better than list, O(1)
 
-        while stack.size > 0:
+        while stack.size() > 0:
             cur_node = stack.pop()
             if cur_node not in visited:
                 print(cur_node)
                 visited.add(cur_node)
                 
-                neighbors = self.get_neighbors(starting_vertex)
+                neighbors = self.get_neighbors(cur_node)
                 for neighbor in neighbors:
                     stack.push(neighbor)
 
