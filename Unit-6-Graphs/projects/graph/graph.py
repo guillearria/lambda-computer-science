@@ -19,7 +19,7 @@ class Graph:
         """
         Add a directed edge to the graph.
         """
-        vertices = list(self.vertices.keys)
+        vertices = self.vertices.keys()
         if v1 in vertices and v2 in vertices:
             self.vertices[v1].add(v2)
         else:
@@ -36,14 +36,46 @@ class Graph:
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # check every node/connection ONCE
+        # keep track with visited set
+        # use QUEUE for BFT
+        
+        # queue = queue()
+        # visited = set()
+
+        pass
+        
 
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # check every node/connection ONCE
+        # keep track with visited set
+        # use STACK for BFT
+        # put starting vertex on top of stack
+        # while stack is NOT empty
+            # pop off top of stack (starting vertex), cur node
+            # check if we have visited this node
+                # if not, add it to visited set and print
+                # also add each of its neighbors into stack
+
+        stack = Stack()
+        stack.push(starting_vertex)
+
+        visited = set() # better than list, O(1)
+
+        while stack.size > 0:
+            cur_node = stack.pop()
+            if cur_node not in visited:
+                print(cur_node)
+                visited.add(cur_node)
+                
+                neighbors = self.get_neighbors(starting_vertex)
+                for neighbor in neighbors:
+                    stack.push(neighbor)
+
 
     def dft_recursive(self, starting_vertex):
         """
