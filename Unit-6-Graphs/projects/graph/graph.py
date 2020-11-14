@@ -96,11 +96,11 @@ class Graph:
         """
         # needs base case
         # also needs to be able to call itself, add visited set to vars
-        
+
         if starting_vertex not in visited:
             print(starting_vertex)
             visited.add(starting_vertex)
-            
+
             neighbors = self.get_neighbors(starting_vertex)
             if len(neighbors) == 0:
                 return
@@ -150,7 +150,7 @@ class Graph:
         stack = Stack()
         stack.push(starting_vertex)
 
-        paths = {starting_vertex: [starting_vertex],}
+        paths = {starting_vertex: [starting_vertex], }
 
         visited = set()
 
@@ -168,7 +168,7 @@ class Graph:
                         paths[neighbor] = new_path
                         stack.push(neighbor)
 
-    def dfs_recursive(self, starting_vertex, destination_vertex):
+    def dfs_recursive(self, starting_vertex, destination_vertex, visited=set(), paths={}):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -176,7 +176,26 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        if len(visited) == 0:
+            paths = {starting_vertex: [starting_vertex]}
+
+        if starting_vertex not in visited:
+            visited.add(starting_vertex)
+
+            neighbors = self.get_neighbors(starting_vertex)
+            if len(neighbors) == 0:
+                return 
+            else:
+                for neighbor in neighbors:
+                    new_path = paths[starting_vertex].copy()
+                    new_path.append(neighbor)
+                    if neighbor == destination_vertex:
+                        print('found!', new_path)
+                        return new_path
+                    else:
+                        paths[neighbor] = new_path
+                        print(paths)
+                        self.dfs_recursive(neighbor, destination_vertex, visited, paths)
 
 
 if __name__ == '__main__':
