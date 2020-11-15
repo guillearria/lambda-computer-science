@@ -57,5 +57,5 @@ def earliest_ancestor(ancestors, starting_node):
     if starting_node in sum(possible_ancestors.values(), []):
         return -1
     else:
-        idx = max(possible_ancestors)
-        return min(possible_ancestors[idx])
+        max_level = max(possible_ancestors)
+        return min(possible_ancestors[max_level])
