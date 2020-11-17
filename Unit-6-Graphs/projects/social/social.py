@@ -49,7 +49,6 @@ class SocialGraph:
         self.last_id = 0
         self.users = {}
         self.friendships = {}
-        # !!!! IMPLEMENT ME
 
         # Add users
         for user in range(num_users):
@@ -57,9 +56,7 @@ class SocialGraph:
 
         # Create friendships
             # total friendships to create = avg_friendships * num_users = around 20
-            # create a list with all possible friendships, 2 friendships at a time
-                # OMIT dups, ie. (1,0) and (0,1)
-
+            # create a list with all possible friendships
         total_friendships = avg_friendships*num_users
         friendship_pairs = []
 
