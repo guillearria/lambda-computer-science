@@ -65,10 +65,10 @@ class SocialGraph:
 
         for user_id in range(1, num_users + 1):
             for friend_id in range(user_id + 1, num_users + 1):
-                friendship_pairs.append(user_id, friend_id)
+                friendship_pairs.append((user_id, friend_id))
 
         # shuffle friendships
-        self.fisher_yates_shuffle(total_friendships)
+        self.fisher_yates_shuffle(friendship_pairs)
 
         # grab first N elements from list
         friendships_to_make = friendship_pairs[:(total_friendships//2)]
