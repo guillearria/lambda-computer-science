@@ -104,7 +104,24 @@ class SocialGraph:
         # can use dictionary to keep track of visited user and.... their path?
         # friendships is kept in adjacency list form
         # graph problems: create graph, create get neighbors, create search method
-        visited = {user_id: self.get_neighbors(user_id)}
+
+        q = Queue()
+        visited = {}
+
+        q.enqueue([user_id])
+
+        while q.size() > 0:
+            current_path = q.dequeue()
+            current_node = current_path[-1]
+
+            if current_node not in visited:
+                visited[current_node] = current_path
+
+                neighbors = self.get_neighbors(current_node)
+                for neighbor in neighbors:
+                    path_copy = current_path + [neighbor]
+                    q.enqueue(path_copy)
+
         return visited
 
 
