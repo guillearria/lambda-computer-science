@@ -73,6 +73,8 @@ class SocialGraph:
         for friendship in friendships_to_make:
             self.add_friendship(friendship[0], friendship[1])
 
+    def get_neighbors(self, user_id):
+        return self.friendships[user_id]
 
     def get_all_social_paths(self, user_id):
         """
@@ -82,9 +84,14 @@ class SocialGraph:
         extended network with the shortest friendship path between them.
 
         The key is the friend's ID and the value is the path.
+
+        NOTES:
+            - Seems like the ideal solution will be BFT for SHORTEST PATH
         """
-        visited = {}  # Note that this is a dictionary, not a set
-        # !!!! IMPLEMENT ME
+        # can use dictionary to keep track of visited user and.... their path?
+        # friendships is kept in adjacency list form
+        # graph problems: create graph, create get neighbors, create search method
+        visited = {}
         return visited
 
 
