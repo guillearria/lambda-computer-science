@@ -142,4 +142,12 @@ if __name__ == '__main__':
 
     # average degree of separation ---> avg steps we took to visit someone
         # average the length of each path
+        # ie. how many friends do we need to go through to meet someone??
+    
+    total_path_lengths = 0
+    for key, value in connections.items():
+        total_path_lengths += len(value)
+
+    avg_path_length = total_path_lengths/len(connections)
+    print(avg_path_length)
         
