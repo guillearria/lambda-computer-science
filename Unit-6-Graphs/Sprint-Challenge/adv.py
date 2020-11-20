@@ -22,11 +22,11 @@ class Queue():
 world = World()
 
 # You may uncomment the smaller graphs for development and testing purposes.
-map_file = "maps/test_line.txt"
+# map_file = "maps/test_line.txt"
 # map_file = "maps/test_cross.txt"
 # map_file = "maps/test_loop.txt"
 # map_file = "maps/test_loop_fork.txt"
-# map_file = "maps/main_maze.txt" # REQUIRED FOR PASSING
+map_file = "maps/main_maze.txt" # REQUIRED FOR PASSING
 
 # Loads the map into a dictionary
 room_graph=literal_eval(open(map_file, "r").read())
@@ -51,30 +51,97 @@ PLANNING:
     - when graph reaches 500 entries, player is done 
 
 Useful commands: 
-    -`player.current_room.id`
-    -`player.current_room.get_exits()`
+    -`player.current_room.id` ==
+    -`player.current_room.get_exits()` == get neighbors
     -`player.travel(direction)` 
 """
 
 # START HERE
+# initiate graph
+# add starting room and its unexplored exits
+# choose a random unexplored room, defined by a val of None
 
+# q = Queue()
+# visited = {}
+
+# q.enqueue(player.current_room.id)
+
+# while q.size() > 0:
+#     cur_room = q.dequeue()
+#     possible_exits = player.current_room.get_exits()
+
+#     if cur_room not in visited:
+#         visited[cur_room] = { direction:None for direction in possible_exits }
+#     else:
+#         print('already visited this room')
+
+#     for direction in possible_exits:
+#         if visited[cur_room][direction] is None:
+#             player.travel(direction)
+#             nxt_room = player.current_room.id
+#             visited[cur_room][direction] = nxt_room
+
+visited = {}
+
+def opposite_dir(direction):
+    if direction == 'n':
+        return 's'
+    elif direction == 's':
+        return 'n'
+    elif direction == 'e':
+        return 'w'
+    elif direction == 'w':
+        return 'e'
+        
+while len(visited) < 500:
+    cur_room = player.current_room.id
+    possible_exits = player.current_room.get_exits()
+
+    if cur_room not in visited:
+        visited[cur_room] = { direction:None for direction in possible_exits }
+
+    direction = next((direction for direction in possible_exits if visited[cur_room][direction] is None), None)
+
+    if direction:
+        player.travel(direction)
+        nxt_room = player.current_room.id
+        traversal_path.append((direction, cur_room))
+        visited[cur_room][direction] = nxt_room
+
+        possible_exits = player.current_room.get_exits()
+        if nxt_room not in visited:
+            visited[nxt_room] = { direction:None for direction in possible_exits }
+        visited[nxt_room][opposite_dir(direction)] = cur_room
+
+    else:
+        reverse_path = []
+        for path in reversed(traversal_path):
+            reverse_path.append(opposite_dir(path[0]))
+            if None in visited[path[1]].values():
+                break
+
+        for direction in reverse_path:
+            cur_room = player.current_room.id
+            traversal_path.append((direction, cur_room))
+            player.travel(direction)
+
+traversal_path = [pair[0] for pair in traversal_path]
 
 
 # TRAVERSAL TEST - DO NOT MODIFY
-# visited_rooms = set()
-# player.current_room = world.starting_room
-# visited_rooms.add(player.current_room)
+visited_rooms = set()
+player.current_room = world.starting_room
+visited_rooms.add(player.current_room)
 
-# for move in traversal_path:
-#     player.travel(move)
-#     visited_rooms.add(player.current_room)
+for move in traversal_path:
+    player.travel(move)
+    visited_rooms.add(player.current_room)
 
-# if len(visited_rooms) == len(room_graph):
-#     print(f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
-# else:
-#     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
-#     print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
-
+if len(visited_rooms) == len(room_graph):
+    print(f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
+else:
+    print("TESTS FAILED: INCOMPLETE TRAVERSAL")
+    print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
 
 
 #######
