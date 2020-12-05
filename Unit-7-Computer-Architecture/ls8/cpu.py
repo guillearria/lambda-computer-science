@@ -93,16 +93,8 @@ class CPU:
                 print(num)
                 self.pc += 1
 
-
             elif instruction_register == HLT: # stop running machine
                 running = False
 
             # move to next item in memory
             self.pc += 1
-
-            # 0b10000010,  # LDI R0,8
-            # 0b00000000,     #number to save
-            # 0b00001000,  # register
-            # 0b01000111,  # PRN R0
-            # 0b00000000,
-            # 0b00000001,  # HLT
