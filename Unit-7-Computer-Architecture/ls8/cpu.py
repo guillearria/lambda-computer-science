@@ -2,6 +2,13 @@
 
 import sys
 
+LDI = 0b10000010,  # LDI R0,8
+            0b00000000,
+            0b00001000,
+            0b01000111,  # PRN R0
+            0b00000000,
+            0b00000001,  # HLT
+
 
 class CPU:
     """Main CPU class."""
@@ -75,4 +82,24 @@ class CPU:
 
         while running: 
             # read instruction from memory
-            instruction_register = ram_read[self.pc]
+            instruction_register = self.ram_read[self.pc]
+            
+            if instruction_register == LDI:
+                # case: set the value of a register to an integer
+                num = int(self.ram_read[self.pc + 1])
+                register_id = int(self.ram_read[self.pc + 2]) # convert to decimal
+                
+                self.reg[register_id] = num
+
+                self.pc += 2
+
+            # move to next item in memory
+            self.pc += 1
+
+
+            # 0b10000010,  # LDI R0,8
+            # 0b00000000,     #number to save
+            # 0b00001000,  # register
+            # 0b01000111,  # PRN R0
+            # 0b00000000,
+            # 0b00000001,  # HLT
