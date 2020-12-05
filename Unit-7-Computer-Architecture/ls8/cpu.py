@@ -1,8 +1,8 @@
 """CPU functionality."""
 import sys
 
-LDI = 0b10000010  # LDI R0,8
-PRN = 0b01000111  # PRN R0
+LDI = 0b10000010  # LDI x, y
+PRN = 0b01000111  # PRN x
 HLT = 0b00000001  # HLT
 
 
@@ -78,19 +78,21 @@ class CPU:
 
         while running:
             # read instruction from memory
-            instruction_register = self.ram_read[self.pc]
+            instruction_register = self.ram_read(self.pc)
 
-            if instruction_register == LDI:
-                # case: set the value of a register to an integer
-                num = int(self.ram_read[self.pc + 1])
-                # convert to decimal
-                register_id = int(self.ram_read[self.pc + 2])
+            if instruction_register == LDI: # set the value of a register to an integer
+                num = int(self.ram_read(self.pc + 1))
+                register_id = int(self.ram_read(self.pc + 2))
 
                 self.reg[register_id] = num
 
                 self.pc += 2
 
-            elif instruction_register == HLT:
+            elif instruction_register == PRN:
+                num = int(self.ram_read(self.pc + 1))
+                print(num)
+
+            elif instruction_register == HLT: # stop running machine
                 running = False
 
             # move to next item in memory
