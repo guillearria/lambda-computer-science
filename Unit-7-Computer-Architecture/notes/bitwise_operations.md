@@ -39,7 +39,11 @@ NAND, NOR
 ~0b1011 --> 0b0100
 
 ### XOR "basically the inverse of or"
-(true XOR true)  --> False
+Also known as exclusive OR
+
+(true XOR true)  --> false
+(false XOR false)  --> false
+(true XOR false)  --> true
 
    0b1011
  ^ 0b0101
@@ -52,7 +56,7 @@ NAND, NOR
    0b1101
 
    0b01010110
- & 0b11100011
+ ^ 0b11100011
  ------------
    0b10110101   
 
@@ -72,11 +76,16 @@ NAND, NOR
 vv
 10100000 
          |
- 0b1010000 >> 1
- 0b0101000 >> 2
-10100000 >> 6
-00000010        # hey it's the number of operands!
-Left bit shifting
+ 0b1010000 0 >> shift by 1
+  0b010100 00 >> shift by 2
+
+10100000 >> 6 shifts required to isolate
+      10 100000
+
+00000010 # hey it's the number of operands!
+Python equivalent: 160 >> 6
+
+### Left bit shifting
  0b10100000 << 1
 0b1000
 0b1000 << 2
