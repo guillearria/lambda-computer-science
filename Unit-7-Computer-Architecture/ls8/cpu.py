@@ -81,16 +81,18 @@ class CPU:
             instruction_register = self.ram_read(self.pc)
 
             if instruction_register == LDI: # set the value of a register to an integer
-                num = int(self.ram_read(self.pc + 1))
-                register_id = int(self.ram_read(self.pc + 2))
+                num = int(self.ram_read(self.pc + 2))
+                register_id = int(self.ram_read(self.pc + 1))
 
                 self.reg[register_id] = num
-
                 self.pc += 2
 
-            elif instruction_register == PRN:
-                num = int(self.ram_read(self.pc + 1))
+            elif instruction_register == PRN: # numeric value stored in a register
+                num = int(self.reg[self.pc + 1])
+                
                 print(num)
+                self.pc += 1
+
 
             elif instruction_register == HLT: # stop running machine
                 running = False
