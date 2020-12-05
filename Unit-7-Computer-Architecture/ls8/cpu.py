@@ -32,10 +32,13 @@ class CPU:
             0b00000001,  # HLT
         ]
 
-        for instruction in program:
-            self.ram[address] = instruction
-            address += 1
+        # for instruction in program:
+        #     self.ram[address] = instruction
+        #     address += 1
 
+        for instruction in program:
+            self.ram.append(instruction)
+            
     def ram_read(self, memory_address_register):
         instruction = self.ram[memory_address_register]
         return instruction
@@ -88,7 +91,8 @@ class CPU:
                 self.pc += 2
 
             elif instruction_register == PRN: # numeric value stored in a register
-                num = int(self.reg[self.pc + 1])
+                register_id = self.ram_read(self.pc + 1)
+                num = int(self.reg[register_id])
                 
                 print(num)
                 self.pc += 1
