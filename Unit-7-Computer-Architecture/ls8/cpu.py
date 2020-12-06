@@ -77,16 +77,16 @@ class CPU:
             instruction_register = self.ram_read(self.pc)
 
             if instruction_register == LDI: # set the value of a register to an integer
-                num = self.ram_read(self.pc + 2)
-                register_id = self.ram_read(self.pc + 1)
+                num_to_save = self.ram_read(self.pc + 2)
+                register_address = self.ram_read(self.pc + 1)
 
-                self.reg[register_id] = num
+                self.reg[register_address] = num_to_save
 
             elif instruction_register == PRN: # numeric value stored in a register
-                register_id = self.ram_read(self.pc + 1)
-                num = self.reg[register_id]
+                register_address = self.ram_read(self.pc + 1)
+                saved_num = self.reg[register_address]
 
-                print(num)
+                print(saved_num)
 
             elif instruction_register == ADD:
                 reg_a = self.ram_read(self.pc + 1)
