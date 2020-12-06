@@ -11,12 +11,13 @@ class CPU:
 
     def __init__(self):
         """Construct a new CPU."""
-        self.ram = []
-        self.reg = [0]*8
+        self.ram = [0] * 256
+        self.reg = [0] * 8
         self.pc = 0
 
     def load(self, filename):
         """Load a program into memory."""
+        address = 0
 
         with open(filename) as f:
             for line in f:
@@ -25,7 +26,8 @@ class CPU:
 
                 if stripped_split_line != "":
                     command = int(stripped_split_line, 2)
-                    self.ram.append(command)
+                    self.ram[address] = command
+                    address += 1
             
     def ram_read(self, memory_address_register):
         instruction = self.ram[memory_address_register]
