@@ -76,8 +76,8 @@ Also known as exclusive OR
 vv
 10100000 
          |
- 0b1010000 0 >> shift by 1
-  0b010100 00 >> shift by 2
+ 0b1010000 >> shift by 1
+ 0b0101000 >> shift by 2
 
 10100000 >> 6 shifts required to isolate
       10 100000
@@ -85,20 +85,28 @@ vv
 00000010 # hey it's the number of operands!
 Python equivalent: 160 >> 6
 
-### Left bit shifting
- 0b10100000 << 1
-0b1000
-0b1000 << 2
-Masking
-use & with 0b1 to essentially delete any higher bits
+### Masking
+Shift and use & operation  to essentially delete any higher bits
+
    0b1010
- & 0b0000
+ & 0b0000  # blocking
    -------
    0b0000 
+
    0b1010
-&  0b0011
+&  0b0011 # block first two, obtain last two
 ---------
    0b0010
+
+#### Instruction Layout
+
+Meanings of the bits in the first byte of each instruction: `AABCDDDD`
+
+* `AA` Number of operands for this opcode, 0-2
+* `B` 1 if this is an ALU operation
+* `C` 1 if this instruction sets the PC
+* `DDDD` Instruction identifier
+
 Shift to the right, then mask
   v
 10100000 
@@ -107,7 +115,9 @@ Shift to the right, then mask
 00000101
    
     00000101
-  & 00000001
+  & 00000001 # is this an ALU operation?
   ----------
     00000001
+
 is_alu_operation = ((IR >> 5) & 0b1) == 1
+
