@@ -26,10 +26,10 @@ class CPU:
                 stripped_split_line = split_line.strip()
 
                 if stripped_split_line != "":
-                    command = int(stripped_split_line, 2)
+                    command = int(stripped_split_line, 2) # convert binary to int
                     self.ram[address] = command
                     address += 1
-            
+        
     def ram_read(self, memory_address_register):
         instruction = self.ram[memory_address_register]
         return instruction
@@ -76,18 +76,15 @@ class CPU:
             instruction_register = self.ram_read(self.pc)
 
             if instruction_register == LDI: # set the value of a register to an integer
-                num = int(self.ram_read(self.pc + 2))
-                register_id = int(self.ram_read(self.pc + 1))
+                num = self.ram_read(self.pc + 2)
+                register_id = self.ram_read(self.pc + 1)
 
                 self.reg[register_id] = num
-                self.pc += 2
 
             elif instruction_register == PRN: # numeric value stored in a register
                 register_id = self.ram_read(self.pc + 1)
-                num = int(self.reg[register_id])
-                
+                num = self.reg[register_id]
                 print(num)
-                self.pc += 1
 
             elif instruction_register == MUL:
                 pass
@@ -96,4 +93,5 @@ class CPU:
                 running = False
 
             # move to next item in memory
-            self.pc += 1
+            num_ops = instruction_register >> 6
+            self.pc += (1 + num_ops)
