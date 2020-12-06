@@ -86,7 +86,7 @@ vv
 Python equivalent: 160 >> 6
 
 ### Masking
-Shift and use & operation  to essentially delete any higher bits
+Shift and use & operation with 0b1 to essentially delete any higher bits
 
    0b1010
  & 0b0000  # blocking
@@ -120,4 +120,3 @@ Shift to the right, then mask
     00000001
 
 is_alu_operation = ((IR >> 5) & 0b1) == 1
-
