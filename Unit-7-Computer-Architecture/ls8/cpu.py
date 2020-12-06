@@ -5,6 +5,7 @@ LDI = 0b10000010
 PRN = 0b01000111
 HLT = 0b00000001
 MUL = 0b10100010
+ADD = 0b10100000
 
 
 class CPU:
@@ -85,6 +86,11 @@ class CPU:
                 register_id = self.ram_read(self.pc + 1)
                 num = self.reg[register_id]
                 print(num)
+
+            elif instruction_register == ADD:
+                reg_a = self.ram_read(self.pc + 1)
+                reg_b = self.ram_read(self.pc + 2)
+                self.alu("ADD", reg_a, reg_b)
 
             elif instruction_register == MUL:
                 reg_a = self.ram_read(self.pc + 1)
