@@ -15,29 +15,17 @@ class CPU:
         self.reg = [0]*8
         self.pc = 0
 
-    def load(self):
+    def load(self, filename):
         """Load a program into memory."""
 
-        address = 0
+        with open(filename) as f:
+            for line in f:
+                split_line = line.split("#")[0]
+                stripped_split_line = split_line.strip()
 
-        # For now, we've just hardcoded a program:
-
-        program = [
-            # From print8.ls8
-            0b10000010,  # LDI R0,8
-            0b00000000,
-            0b00001000,
-            0b01000111,  # PRN R0
-            0b00000000,
-            0b00000001,  # HLT
-        ]
-
-        # for instruction in program:
-        #     self.ram[address] = instruction
-        #     address += 1
-
-        for instruction in program:
-            self.ram.append(instruction)
+                if stripped_split_line != "":
+                    command = int(stripped_split_line, 2)
+                    self.ram.append(command)
             
     def ram_read(self, memory_address_register):
         instruction = self.ram[memory_address_register]
