@@ -1,9 +1,10 @@
 """CPU functionality."""
 import sys
 
-LDI = 0b10000010  # LDI x, y
-PRN = 0b01000111  # PRN x
-HLT = 0b00000001  # HLT
+LDI = 0b10000010
+PRN = 0b01000111
+HLT = 0b00000001
+MUL = 0b10100010
 
 
 class CPU:
@@ -39,9 +40,10 @@ class CPU:
     def alu(self, op, reg_a, reg_b):
         """ALU operations."""
 
-        if op == "ADD":
-            self.reg[reg_a] += self.reg[reg_b]
-        # elif op == "SUB": etc
+        # if op == ADD:
+        #     self.reg[reg_a] += self.reg[reg_b]
+        if op == MUL:
+            return self.reg[reg_a]*self.reg[reg_b]
         else:
             raise Exception("Unsupported ALU operation")
 
@@ -86,6 +88,9 @@ class CPU:
                 
                 print(num)
                 self.pc += 1
+
+            elif instruction_register == MUL:
+                pass
 
             elif instruction_register == HLT: # stop running machine
                 running = False
