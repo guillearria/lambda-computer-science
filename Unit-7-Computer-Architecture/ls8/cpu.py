@@ -6,8 +6,8 @@ PRN = 0b01000111
 HLT = 0b00000001
 MUL = 0b10100010
 ADD = 0b10100000
-PUSH = 0b01000111
-POP = 0b01001000
+PUSH = 0b01000101
+POP = 0b01000110
 
 
 class CPU:
@@ -78,6 +78,7 @@ class CPU:
         running = True
 
         while running:
+            print(self.reg)
             # read instruction from memory
             instruction_register = self.ram_read(self.pc)
 
