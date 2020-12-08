@@ -110,14 +110,13 @@ class CPU:
                 self.ram[stack_pointer] = value
 
             elif instruction_register == POP: 
-                # copy value from address pointed to by SP to given register
+                # pop the value at the top of the stack into the given register
+                ## find value in memory from address pointed to by SP
                 stack_pointer = self.reg[7]
                 value = self.ram[stack_pointer]
 
-                # find target register address
+                # copy value into register using given register
                 register_address = self.ram_read(self.pc + 1)
-
-                # place value in that register
                 self.reg[register_address] = value
 
                 # increment stack pointer
