@@ -81,19 +81,22 @@ class CPU:
             # read instruction from memory
             instruction_register = self.ram_read(self.pc)
 
-            if instruction_register == LDI: # set the value of a register to an integer
+            if instruction_register == LDI: 
+                # set the value of a register to an integer
                 num_to_save = self.ram_read(self.pc + 2)
                 register_address = self.ram_read(self.pc + 1)
 
                 self.reg[register_address] = num_to_save
 
-            elif instruction_register == PRN: # numeric value stored in a register
+            elif instruction_register == PRN: 
+                # numeric value stored in a register
                 register_address = self.ram_read(self.pc + 1)
                 saved_num = self.reg[register_address]
 
                 print(saved_num)
 
-            elif instruction_register == PUSH: # push value in given register on stack
+            elif instruction_register == PUSH: 
+                # push value in given register on stack
                 # decrement stack pointer (SP)
                 ## SP always starts off at address F4
                 ## R7 is always our SP, POINTS TO F4
@@ -108,8 +111,8 @@ class CPU:
                 stack_pointer = self.reg[7]
                 self.ram[stack_pointer] = value
 
-            elif instruction_register == POP:
-                # copy value from address pointed to by SP to the
+            elif instruction_register == POP: 
+                # copy value from address pointed to by SP to given register
                 stack_pointer = self.reg[7]
                 value = self.ram[stack_pointer]
 
@@ -118,6 +121,9 @@ class CPU:
 
                 # place value in that register
                 self.reg[register_address] = value
+
+                # increment stack pointer
+                self.reg[7] += 1
 
             elif instruction_register == ADD:
                 reg_a = self.ram_read(self.pc + 1)
@@ -131,7 +137,8 @@ class CPU:
                 
                 self.alu("MUL", reg_a, reg_b)
 
-            elif instruction_register == HLT: # stop running machine
+            elif instruction_register == HLT: 
+                # stop running machine
                 running = False
 
             # move to next item in memory
