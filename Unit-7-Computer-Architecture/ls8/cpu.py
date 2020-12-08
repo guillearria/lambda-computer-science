@@ -6,6 +6,7 @@ PRN = 0b01000111
 HLT = 0b00000001
 MUL = 0b10100010
 ADD = 0b10100000
+PUSH = 0b01000111
 
 
 class CPU:
@@ -16,6 +17,9 @@ class CPU:
         self.ram = [0] * 256
         self.reg = [0] * 8
         self.pc = 0
+
+        # stack pointer
+        self.reg[7] = 0xF4
 
     def load(self, filename):
         """Load a program into memory."""
@@ -87,6 +91,11 @@ class CPU:
                 saved_num = self.reg[register_address]
 
                 print(saved_num)
+
+            elif instruction_register == PUSH: # push value in given register on stack
+                # decrement stack pointer (SP)
+                # copy value in given register to address pointed by SP
+                pass
 
             elif instruction_register == ADD:
                 reg_a = self.ram_read(self.pc + 1)
