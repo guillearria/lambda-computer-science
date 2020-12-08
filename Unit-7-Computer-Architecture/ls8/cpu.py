@@ -94,7 +94,17 @@ class CPU:
 
             elif instruction_register == PUSH: # push value in given register on stack
                 # decrement stack pointer (SP)
+                ## SP always starts off at address F4
+                ## R7 is always our SP, POINTS TO F4
+                self.reg[7] -= 1
+
                 # copy value in given register to address pointed by SP
+                register_address = self.ram_read(self.pc + 1)
+                value = self.reg[register_address]
+
+                # copy into SP address
+                ## copy value into our memory, where?
+                self.ram[self.reg[7]] = value
                 pass
 
             elif instruction_register == ADD:
