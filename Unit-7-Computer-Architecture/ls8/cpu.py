@@ -7,6 +7,7 @@ HLT = 0b00000001
 MUL = 0b10100010
 ADD = 0b10100000
 PUSH = 0b01000111
+POP = 0b01001000
 
 
 class CPU:
@@ -104,8 +105,19 @@ class CPU:
 
                 # copy into SP address
                 ## copy value into our memory, where?
-                self.ram[self.reg[7]] = value
-                pass
+                stack_pointer = self.reg[7]
+                self.ram[stack_pointer] = value
+
+            elif instruction_register == POP:
+                # copy value from address pointed to by SP to the
+                stack_pointer = self.reg[7]
+                value = self.ram[stack_pointer]
+
+                # find target register address
+                register_address = self.ram_read(self.pc + 1)
+
+                # place value in that register
+                self.reg[register_address] = value
 
             elif instruction_register == ADD:
                 reg_a = self.ram_read(self.pc + 1)
