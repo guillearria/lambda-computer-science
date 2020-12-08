@@ -97,15 +97,15 @@ class CPU:
                 print(saved_num)
 
             elif instruction_register == PUSH: 
-                # push value in given register on the stack
-                # decrement stack pointer (SP)
+                # push the value in the given register to the stack
+                ## decrement stack pointer (SP)
                 self.reg[7] -= 1
 
-                # copy value in given register to address pointed by SP
+                # find value in given register
                 register_address = self.ram_read(self.pc + 1)
                 value = self.reg[register_address]
 
-                # copy value into our memory using SP
+                # copy value into our stack using SP
                 stack_pointer = self.reg[7]
                 self.ram[stack_pointer] = value
 
