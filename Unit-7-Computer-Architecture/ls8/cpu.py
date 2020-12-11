@@ -80,9 +80,11 @@ class CPU:
         running = True
 
         while running:
-            print(self.reg)
+            print("PC:", self.pc+1)
+            print("Register:", self.reg)
             # read instruction from memory
             instruction_register = self.ram_read(self.pc)
+            print("IR:", bin(instruction_register), "\n")
 
             if instruction_register == LDI: 
                 # set the value of a register to an integer
@@ -170,4 +172,9 @@ class CPU:
 
             # move to next item in memory
             num_ops = instruction_register >> 6
-            self.pc += (1 + num_ops)
+
+            # bit shift and mask to isolate the 'C' bit
+            sets_pc_directly = ((instruction_register >> 4) & 0b001) == 0b001
+            
+            if not sets_pc_directly:
+                self.pc += (1 + num_ops)
