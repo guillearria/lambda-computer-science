@@ -141,7 +141,16 @@ class CPU:
                 self.pc = subroutine_address
 
             elif instruction_register == RET:
-                pass
+                # return from subroutine
+                ## POP value from top of stack
+                stack_pointer = self.reg[7]
+                value = self.ram[stack_pointer]
+                
+                # store it as PC
+                self.pc = value
+
+                # move stack pointer back up
+                self.reg[7] += 1
 
             elif instruction_register == ADD:
                 reg_a = self.ram_read(self.pc + 1)
