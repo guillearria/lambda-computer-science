@@ -124,6 +124,25 @@ class CPU:
                 # increment stack pointer
                 self.reg[7] += 1
 
+            elif instruction_register == CALL:
+                # calls a subroutine at the address stored in the register
+                ## implement PUSH functionality for instruction index AFTER current
+                next_instruction = self.pc + 2
+
+                self.reg[7] -= 1
+                stack_pointer = self.reg[7]
+
+                self.ram[stack_pointer] = next_instruction
+
+                # jump to subroutine, set PC to address in register
+                register_address = self.ram_read(self.pc + 1)
+                subroutine_address = self.reg[register_address]
+
+                self.pc = subroutine_address
+
+            elif instruction_register == RET:
+                pass
+
             elif instruction_register == ADD:
                 reg_a = self.ram_read(self.pc + 1)
                 reg_b = self.ram_read(self.pc + 2)
