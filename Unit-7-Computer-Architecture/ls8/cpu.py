@@ -47,10 +47,9 @@ class CPU:
 
     def alu(self, op, reg_a, reg_b):
         """ALU operations."""
-
         if op == "ADD":
-            self.reg[reg_a] += self.reg[reg_b]
-        if op == "MUL":
+            self.reg[reg_a] = self.reg[reg_a] + self.reg[reg_b]
+        elif op == "MUL":
             self.reg[reg_a] *= self.reg[reg_b]
         else:
             raise Exception("Unsupported ALU operation")
@@ -80,11 +79,8 @@ class CPU:
         running = True
 
         while running:
-            print("PC:", self.pc+1)
-            print("Register:", self.reg)
             # read instruction from memory
             instruction_register = self.ram_read(self.pc)
-            print("IR:", bin(instruction_register), "\n")
 
             if instruction_register == LDI: 
                 # set the value of a register to an integer
