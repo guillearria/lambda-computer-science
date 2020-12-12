@@ -10,6 +10,7 @@ PUSH = 0b01000101
 POP = 0b01000110
 CALL = 0b01010000
 RET = 0b00010001
+CMP = 0b10100111
 
 
 class CPU:
@@ -149,6 +150,10 @@ class CPU:
 
                 # move stack pointer back up
                 self.reg[7] += 1
+
+            elif instruction_register == CMP:
+                # compare values in two registers
+                pass
 
             elif instruction_register == ADD:
                 reg_a = self.ram_read(self.pc + 1)
