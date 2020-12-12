@@ -52,6 +52,10 @@ class CPU:
             self.reg[reg_a] = self.reg[reg_a] + self.reg[reg_b]
         elif op == "MUL":
             self.reg[reg_a] *= self.reg[reg_b]
+        elif op == "CMP":
+            # if values are equal, set Equal (E) flag to 1, otherwise 0
+            # elif rA < rB, sett Less-than (L) flag to 1, otherwise 0
+            # elif rA > rB, sett Greater-than (G) flag to 1, otherwise 0
         else:
             raise Exception("Unsupported ALU operation")
 
@@ -153,7 +157,10 @@ class CPU:
 
             elif instruction_register == CMP:
                 # compare values in two registers
-                pass
+                reg_a = self.ram_read(self.pc + 1)
+                reg_b = self.ram_read(self.pc + 2)
+
+                self.alu("CMP", reg_a, reg_b)
 
             elif instruction_register == ADD:
                 reg_a = self.ram_read(self.pc + 1)
