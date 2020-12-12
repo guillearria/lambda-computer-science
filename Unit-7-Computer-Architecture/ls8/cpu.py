@@ -186,24 +186,28 @@ class CPU:
             elif instruction_register == JEQ:
                 # if `equal` flag is true, jump to the address stored in the given register
                 ## check equal flag, `FL` bits: `00000LGE`
-                if self.reg[7]:
+                if self.reg[7] == 1:
                     # get address to jump to in given register
                     register_address = self.ram_read(self.pc + 1)
                     instruction_address = self.reg[register_address]
 
                     # set PC to new instruction address
                     self.pc = instruction_address
+                else:
+                    self.pc += 2
 
             elif instruction_register == JNE:
                 # if `equal` flag is false, jump to the address stored in the given register
                 ## check equal flag, `FL` bits: `00000LGE`
-                if not self.reg[7]:
+                if self.reg[7] == 0:
                     # get address to jump to in given register
                     register_address = self.ram_read(self.pc + 1)
                     instruction_address = self.reg[register_address]
 
                     # set PC to new instruction address
                     self.pc = instruction_address
+                else:
+                    self.pc += 2
 
             elif instruction_register == ADD:
                 reg_a = self.ram_read(self.pc + 1)
