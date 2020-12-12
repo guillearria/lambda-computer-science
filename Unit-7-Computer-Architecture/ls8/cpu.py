@@ -183,6 +183,28 @@ class CPU:
 
                 self.alu("CMP", reg_a, reg_b)
 
+            elif instruction_register == JEQ:
+                # if `equal` flag is true, jump to the address stored in the given register
+                ## check equal flag, `FL` bits: `00000LGE`
+                if self.reg[7]:
+                    # get address to jump to in given register
+                    register_address = self.ram_read(self.pc + 1)
+                    instruction_address = self.reg[register_address]
+
+                    # set PC to new instruction address
+                    self.pc = instruction_address
+
+            elif instruction_register == JNE:
+                # if `equal` flag is false, jump to the address stored in the given register
+                ## check equal flag, `FL` bits: `00000LGE`
+                if not self.reg[7]:
+                    # get address to jump to in given register
+                    register_address = self.ram_read(self.pc + 1)
+                    instruction_address = self.reg[register_address]
+
+                    # set PC to new instruction address
+                    self.pc = instruction_address
+
             elif instruction_register == ADD:
                 reg_a = self.ram_read(self.pc + 1)
                 reg_b = self.ram_read(self.pc + 2)
