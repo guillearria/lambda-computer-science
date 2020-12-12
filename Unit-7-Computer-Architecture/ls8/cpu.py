@@ -138,7 +138,13 @@ class CPU:
                 self.reg[7] += 1
 
             elif instruction_register == JMP:
+                # jump to the address stored in the given register, similar to CALL
+                ## get instruction address to jump to using given register
+                register_address = self.ram_read(self.pc + 1)
+                instruction_address = self.reg[register_address]
 
+                # set PC to new instruction address
+                self.pc = instruction_address
 
             elif instruction_register == CALL:
                 # calls a subroutine at the address stored in the register
