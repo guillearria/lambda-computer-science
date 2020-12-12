@@ -11,6 +11,7 @@ POP = 0b01000110
 CALL = 0b01010000
 RET = 0b00010001
 CMP = 0b10100111
+JMP = 0b01010100
 
 
 class CPU:
@@ -135,6 +136,9 @@ class CPU:
 
                 # increment stack pointer
                 self.reg[7] += 1
+
+            elif instruction_register == JMP:
+
 
             elif instruction_register == CALL:
                 # calls a subroutine at the address stored in the register
