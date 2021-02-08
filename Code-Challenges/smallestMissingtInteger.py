@@ -45,7 +45,7 @@ Write an efficient algorithm for the following assumptions:
 #             return 1
 #         else:
 #             for n in range(1, max(A)+1):
-#                 if n not in A:
+#                 if n not in A: # INEFFICIENT LOOKUP, CONVERT TO SET
 #                     return n
 #             return max(A)+1
 
